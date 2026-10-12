@@ -2,1052 +2,873 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="google-site-verification" content="prXUu7VgkjX3tjdmuRCAHx5vn75Op4pviQRCFMh_QcY">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="X-NOVA00は、勤怠管理システムなどの業務ソフトウェアを自社開発・販売しています。IT化・AI化のススメ。現場の困りごとを、自社開発のシステムで解決します。">
-    <title>X-NOVA00 | IT化・AI化のススメ | 業務システム開発・販売</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="prXUu7VgkjX3tjdmuRCAHx5vn75Op4pviQRCFMh_QcY">
+<meta name="description" content="X-NOVA00は業務システムを自社開発・販売しています。IT化・AI化のススメ。勤怠管理システムなどのクラウドソフトウェアを提供します。">
+<title>X-NOVA00 | IT化・AI化のススメ | 業務システム開発・販売</title>
 
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFJNOVCHCB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-QFJNOVCHCB');
-    </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QFJNOVCHCB"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-QFJNOVCHCB');
+</script>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --bg-color: #0a0b10;
-            --card-bg: rgba(22, 27, 38, 0.7);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --primary-accent: #00f0ff;
-            --secondary-accent: #7000ff;
-            --text-main: #f0f4f8;
-            --text-muted: #8a99ad;
-            --font-head: 'Space Grotesk', sans-serif;
-            --font-body: 'Inter', sans-serif;
-            --font-code: 'JetBrains Mono', monospace;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            line-height: 1.6;
-            overflow-x: hidden;
-            background-image:
-                radial-gradient(circle at 15% 15%, rgba(112, 0, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(0, 240, 255, 0.12) 0%, transparent 40%);
-            background-attachment: fixed;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .section {
-            padding: 100px 0;
-            scroll-margin-top: 70px;
-        }
-
-        .section-title {
-            font-family: var(--font-head);
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--primary-accent);
-            box-shadow: 0 0 10px var(--primary-accent);
-        }
-
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 48px;
-            font-family: var(--font-code);
-        }
-
-        .grid {
-            display: grid;
-            gap: 24px;
-        }
-
-        .grid-2 {
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        }
-
-        .grid-3 {
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 32px;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .card:hover {
-            border-color: rgba(0, 240, 255, 0.4);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.15);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            border-radius: 6px;
-            font-family: var(--font-code);
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--primary-accent);
-            color: #000;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-        }
-
-        .btn-primary:hover {
-            background: #fff;
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(10, 11, 16, 0.8);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
-
-        .logo {
-            font-family: var(--font-head);
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-main);
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: var(--primary-accent);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-family: var(--font-code);
-            font-size: 0.8rem;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-accent);
-        }
-
-        .hero {
-            padding: 180px 0 100px;
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-tag {
-            font-family: var(--font-code);
-            color: var(--primary-accent);
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-            display: block;
-        }
-
-        .hero-title {
-            font-family: var(--font-head);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            line-height: 1.2;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, var(--primary-accent), var(--secondary-accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc {
-            max-width: 650px;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 32px;
-        }
-
-        .business-label {
-            display: inline-block;
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 8px 14px;
-            margin-bottom: 24px;
-            font-size: 0.9rem;
-        }
-
-        .profile-card {
-            border-left: 4px solid var(--primary-accent);
-        }
-
-        .profile-card h3,
-        .service-card h3 {
-            font-family: var(--font-head);
-            margin-bottom: 12px;
-            font-size: 1.2rem;
-        }
-
-        .service-icon {
-            font-family: var(--font-code);
-            color: var(--primary-accent);
-            font-size: 1.2rem;
-            margin-bottom: 16px;
-        }
-
-        .service-card p,
-        .product-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 4px 10px;
-            background: rgba(0, 240, 255, 0.1);
-            color: var(--primary-accent);
-            border-radius: 4px;
-            font-family: var(--font-code);
-            font-size: 0.75rem;
-            margin-bottom: 12px;
-        }
-
-        .product-card h3 {
-            font-family: var(--font-head);
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-        }
-
-        .product-price {
-            color: var(--primary-accent);
-            font-family: var(--font-code);
-            margin-top: 18px;
-            font-weight: 700;
-        }
-
-        .contact-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 40px;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-family: var(--font-code);
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            color: var(--text-muted);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 16px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-main);
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            transition: border-color 0.2s ease;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .email-direct {
-            margin-top: 24px;
-            text-align: center;
-            font-family: var(--font-code);
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            overflow-wrap: anywhere;
-        }
-
-        .email-direct a {
-            color: var(--primary-accent);
-            text-decoration: none;
-        }
-
-        .legal-section {
-            background: rgba(14, 18, 26, 0.95);
-            border-top: 1px solid var(--border-color);
-            padding: 80px 0;
-            scroll-margin-top: 70px;
-        }
-
-        .legal-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 32px;
-            margin-bottom: 30px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            scroll-margin-top: 90px;
-        }
-
-        .legal-box h3 {
-            font-family: var(--font-head);
-            color: var(--primary-accent);
-            font-size: 1.3rem;
-            margin-bottom: 16px;
-        }
-
-        .legal-box h4 {
-            color: var(--text-main);
-            font-size: 1rem;
-            margin-top: 20px;
-            margin-bottom: 8px;
-        }
-
-        .legal-box p {
-            margin-bottom: 12px;
-            line-height: 1.7;
-            color: var(--text-muted);
-        }
-
-        .legal-box ul {
-            padding-left: 20px;
-            margin-bottom: 12px;
-        }
-
-        .legal-box li {
-            margin-bottom: 6px;
-        }
-
-        .legal-box a {
-            color: var(--primary-accent);
-            text-decoration: underline;
-            overflow-wrap: anywhere;
-        }
-
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 30px 0;
-            text-align: center;
-            font-family: var(--font-code);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .section {
-                padding: 60px 0;
-            }
-
-            .hero {
-                padding: 140px 0 70px;
-            }
-
-            .contact-box {
-                padding: 24px;
-            }
-
-            .legal-box {
-                padding: 20px;
-            }
-        }
-    </style>
+<style>
+:root{
+--bg-color:#0a0b10;
+--card-bg:rgba(22,27,38,.7);
+--border-color:rgba(255,255,255,.08);
+--primary-accent:#00f0ff;
+--secondary-accent:#7000ff;
+--text-main:#f0f4f8;
+--text-muted:#8a99ad;
+--font-head:'Space Grotesk',sans-serif;
+--font-body:'Inter',sans-serif;
+--font-code:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+background-color:var(--bg-color);
+color:var(--text-main);
+font-family:var(--font-body);
+line-height:1.6;
+overflow-x:hidden;
+background-image:
+radial-gradient(circle at 15% 15%,rgba(112,0,255,.15),transparent 40%),
+radial-gradient(circle at 85% 85%,rgba(0,240,255,.12),transparent 40%);
+background-attachment:fixed;
+}
+.container{max-width:1100px;margin:auto;padding:0 24px}
+.section{padding:100px 0;scroll-margin-top:80px}
+.section-title{
+font-family:var(--font-head);
+font-size:2.2rem;
+font-weight:700;
+margin-bottom:12px;
+position:relative;
+display:inline-block;
+}
+.section-title:after{
+content:'';
+position:absolute;
+bottom:-6px;left:0;
+width:40px;height:3px;
+background:var(--primary-accent);
+box-shadow:0 0 10px var(--primary-accent);
+}
+.section-subtitle{
+color:var(--text-muted);
+font-size:.95rem;
+margin-bottom:48px;
+font-family:var(--font-code);
+}
+.grid{display:grid;gap:24px}
+.grid-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{
+background:var(--card-bg);
+border:1px solid var(--border-color);
+border-radius:12px;
+padding:32px;
+backdrop-filter:blur(12px);
+transition:.3s;
+}
+.card:hover{
+border-color:rgba(0,240,255,.4);
+transform:translateY(-4px);
+box-shadow:0 10px 30px -10px rgba(0,240,255,.15);
+}
+.btn{
+display:inline-block;
+padding:12px 28px;
+border-radius:6px;
+font-family:var(--font-code);
+font-weight:700;
+font-size:.9rem;
+text-decoration:none;
+cursor:pointer;
+transition:.2s;
+border:0;
+}
+.btn-primary{
+background:var(--primary-accent);
+color:#000;
+box-shadow:0 0 15px rgba(0,240,255,.4);
+}
+.btn-primary:hover{
+background:#fff;
+box-shadow:0 0 25px rgba(0,240,255,.8);
+}
+header{
+position:fixed;
+top:0;width:100%;
+z-index:1000;
+background:rgba(10,11,16,.8);
+backdrop-filter:blur(16px);
+border-bottom:1px solid var(--border-color);
+}
+.nav-container{
+display:flex;
+justify-content:space-between;
+align-items:center;
+height:70px;
+}
+.logo{
+font-family:var(--font-head);
+font-size:1.4rem;
+font-weight:700;
+color:var(--text-main);
+text-decoration:none;
+letter-spacing:1px;
+}
+.logo span{color:var(--primary-accent)}
+.nav-links{
+display:flex;
+gap:20px;
+list-style:none;
+}
+.nav-links a{
+color:var(--text-muted);
+text-decoration:none;
+font-family:var(--font-code);
+font-size:.8rem;
+}
+.nav-links a:hover{color:var(--primary-accent)}
+.hero{
+padding:180px 0 100px;
+min-height:80vh;
+display:flex;
+align-items:center;
+}
+.hero-tag{
+font-family:var(--font-code);
+color:var(--primary-accent);
+font-size:.9rem;
+margin-bottom:16px;
+display:block;
+}
+.hero-title{
+font-family:var(--font-head);
+font-size:clamp(2.5rem,5vw,4rem);
+line-height:1.15;
+font-weight:700;
+margin-bottom:24px;
+}
+.gradient-text{
+background:linear-gradient(135deg,var(--primary-accent),var(--secondary-accent));
+-webkit-background-clip:text;
+background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+.hero-desc{
+max-width:650px;
+color:var(--text-muted);
+font-size:1.1rem;
+margin-bottom:32px;
+}
+.business-label{
+display:inline-block;
+border:1px solid var(--border-color);
+padding:8px 14px;
+border-radius:6px;
+margin-bottom:24px;
+}
+.profile-card{border-left:4px solid var(--primary-accent)}
+.profile-card h3,.service-card h3{
+font-family:var(--font-head);
+margin-bottom:12px;
+font-size:1.2rem;
+}
+.service-icon{
+font-family:var(--font-code);
+color:var(--primary-accent);
+font-size:1.2rem;
+margin-bottom:16px;
+}
+.service-card p,.product-card p{
+color:var(--text-muted);
+font-size:.95rem;
+}
+.tag{
+display:inline-block;
+padding:4px 10px;
+background:rgba(0,240,255,.1);
+color:var(--primary-accent);
+border-radius:4px;
+font-family:var(--font-code);
+font-size:.75rem;
+margin-bottom:12px;
+}
+.product-card h3{
+font-family:var(--font-head);
+font-size:1.3rem;
+margin-bottom:8px;
+}
+.product-card p{margin-bottom:12px}
+.pricing-card{max-width:1100px}
+.pricing-card h3{
+font-size:1.2rem;
+margin-bottom:16px;
+}
+.pricing-card p{
+color:var(--text-muted);
+margin-bottom:18px;
+}
+.price-row{
+font-weight:700;
+font-size:1.05rem;
+margin:12px 0;
+}
+.price-value{
+color:var(--primary-accent);
+font-weight:800;
+}
+.price-note{
+font-size:.9rem;
+margin-top:28px;
+}
+.contact-box{
+background:var(--card-bg);
+border:1px solid var(--border-color);
+border-radius:16px;
+padding:40px;
+max-width:700px;
+margin:auto;
+}
+.form-group{margin-bottom:20px}
+.form-group label{
+display:block;
+font-family:var(--font-code);
+font-size:.85rem;
+margin-bottom:8px;
+color:var(--text-muted);
+}
+.form-control{
+width:100%;
+padding:12px 16px;
+background:rgba(0,0,0,.4);
+border:1px solid var(--border-color);
+border-radius:6px;
+color:var(--text-main);
+font-family:var(--font-body);
+font-size:.95rem;
+}
+.form-control:focus{
+outline:none;
+border-color:var(--primary-accent);
+}
+textarea.form-control{
+resize:vertical;
+min-height:120px;
+}
+.email-direct{
+margin-top:24px;
+text-align:center;
+font-family:var(--font-code);
+font-size:.9rem;
+color:var(--text-muted);
+overflow-wrap:anywhere;
+}
+.email-direct a,.legal-box a{
+color:var(--primary-accent);
+}
+.legal-section{
+background:rgba(14,18,26,.95);
+border-top:1px solid var(--border-color);
+padding:80px 0;
+scroll-margin-top:80px;
+}
+.legal-box{
+background:var(--card-bg);
+border:1px solid var(--border-color);
+border-radius:12px;
+padding:32px;
+margin-bottom:30px;
+font-size:.9rem;
+color:var(--text-muted);
+scroll-margin-top:90px;
+}
+.legal-box h3{
+font-family:var(--font-head);
+color:var(--primary-accent);
+font-size:1.3rem;
+margin-bottom:16px;
+}
+.legal-box h4{
+color:var(--text-main);
+font-size:1rem;
+margin:20px 0 8px;
+}
+.legal-box p{
+margin-bottom:12px;
+line-height:1.7;
+}
+.legal-box ul{
+padding-left:20px;
+margin-bottom:12px;
+}
+.legal-box li{margin-bottom:6px}
+.legal-box a{overflow-wrap:anywhere}
+footer{
+border-top:1px solid var(--border-color);
+padding:30px 0;
+text-align:center;
+font-family:var(--font-code);
+font-size:.8rem;
+color:var(--text-muted);
+}
+.fade-in{
+opacity:0;
+transform:translateY(20px);
+transition:opacity .6s ease,transform .6s ease;
+}
+.fade-in.visible{
+opacity:1;
+transform:translateY(0);
+}
+@media(max-width:768px){
+.nav-links{display:none}
+.section{padding:60px 0}
+.hero{padding:140px 0 70px}
+.contact-box{padding:24px}
+.legal-box{padding:20px}
+}
+</style>
 </head>
 
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <a href="#" class="logo">X-NOVA<span>00</span></a>
-            <ul class="nav-links">
-                <li><a href="#about">// ABOUT</a></li>
-                <li><a href="#services">// SERVICES</a></li>
-                <li><a href="#products">// PRODUCTS</a></li>
-                <li><a href="#contact">// CONTACT</a></li>
-                <li><a href="#legal">// LEGAL</a></li>
-            </ul>
-        </div>
-    </header>
-
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <span class="hero-tag fade-in">
-                // BUSINESS SOFTWARE DEVELOPMENT & SALES
-            </span>
-
-            <h1 class="hero-title fade-in">
-                <span class="gradient-text">
-                    IT化・AI化のススメ
-                </span>
-            </h1>
-
-            <div class="business-label fade-in">
-                業務システム開発・販売
-            </div>
-
-            <p class="hero-desc fade-in">
-                現場の困りごとを、自社開発のシステムで解決します。
-            </p>
-
-            <p class="hero-desc fade-in">
-                X-NOVA00は、勤怠管理システムをはじめとする
-                業務ソフトウェアを自社開発・販売しています。
-                スマートフォン、NFC、クラウド技術を活用し、
-                日々の入力作業や管理業務の負担を軽減します。
-            </p>
-
-            <a href="#products" class="btn btn-primary fade-in">
-                製品を見る
-            </a>
-        </div>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">ABOUT</h2>
-            <p class="section-subtitle fade-in">
-                // X-NOVA00について
-            </p>
-
-            <div class="grid grid-2">
-                <div class="card profile-card fade-in">
-                    <h3>現場で使えるソフトウェア</h3>
-                    <p>
-                        X-NOVA00は、実際に働く人が使いやすい
-                        業務システムの開発を重視しています。
-                        複雑な操作を減らし、日常業務に自然に
-                        組み込める仕組みを目指します。
-                    </p>
-                </div>
-
-                <div class="card profile-card fade-in">
-                    <h3>自社開発・継続提供</h3>
-                    <p>
-                        勤怠管理をはじめとする業務ソフトウェアを
-                        自社で開発し、クラウドサービスとして提供します。
-                        導入後も継続して利用できる
-                        システムづくりに取り組んでいます。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services -->
-    <section id="services" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">SERVICES</h2>
-            <p class="section-subtitle fade-in">
-                // 業務システム開発・販売
-            </p>
-
-            <div class="grid grid-3">
-                <div class="card service-card fade-in">
-                    <div class="service-icon">[01]</div>
-                    <h3>勤怠管理ソフトウェア</h3>
-                    <p>
-                        スマートフォンから出退勤を記録し、
-                        勤務時間の管理・集計を行う
-                        クラウド型の勤怠管理システムです。
-                    </p>
-                </div>
-
-                <div class="card service-card fade-in">
-                    <div class="service-icon">[02]</div>
-                    <h3>業務システム開発</h3>
-                    <p>
-                        手入力や転記作業を減らすための
-                        業務ソフトウェアを開発します。
-                        Googleスプレッドシートなどを活用し、
-                        日常業務の効率化を支援します。
-                    </p>
-                </div>
-
-                <div class="card service-card fade-in">
-                    <div class="service-icon">[03]</div>
-                    <h3>IT化・AI化システム</h3>
-                    <p>
-                        NFC、クラウド、AIなどの技術を取り入れ、
-                        現場の業務を自動化・効率化する
-                        ソフトウェアの開発に取り組んでいます。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products -->
-    <section id="products" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">PRODUCTS</h2>
-            <p class="section-subtitle fade-in">
-                // 自社開発ソフトウェア・開発プロジェクト
-            </p>
-
-            <div class="grid grid-3">
-
-                <div class="card product-card fade-in">
-                    <span class="tag">Business SaaS</span>
-                    <h3>X-NOVA00 勤怠管理システム</h3>
-                    <p>
-                        飲食店、ホテル、介護施設などの
-                        事業者向けクラウド型勤怠管理ソフトウェア。
-                    </p>
-                    <p>
-                        従業員はスマートフォンから出退勤を記録。
-                        管理者は勤怠データ、勤務時間、
-                        修正申請・承認、月別集計などを管理できます。
-                    </p>
-                    <p>
-                        Google Apps ScriptとGoogleスプレッドシートを
-                        利用したWebアプリケーションです。
-                    </p>
-                    <p>
-                        初期設定費用と月額利用料による
-                        ソフトウェア提供モデルです。
-                    </p>
-                    <p class="product-price">
-                        料金・導入条件はお問い合わせください
-                    </p>
-                    <p style="margin-top: 18px;">
-                        <a href="#contact" class="btn btn-primary">
-                            製品について問い合わせる
-                        </a>
-                    </p>
-                </div>
-
-                <div class="card product-card fade-in">
-                    <span class="tag">Development Project</span>
-                    <h3>高齢者あんしんお守り</h3>
-                    <p>
-                        NFCタグを活用し、緊急時の連絡や
-                        地域での見守りにつなげる仕組みを構想しています。
-                    </p>
-                    <p>
-                        現在、開発・実証を検討しているプロジェクトです。
-                    </p>
-                </div>
-
-                <div class="card product-card fade-in">
-                    <span class="tag">Development Project</span>
-                    <h3>こども登下校お守り</h3>
-                    <p>
-                        NFCタグを活用し、登下校時の確認や
-                        保護者への通知を支援する
-                        システムを構想しています。
-                    </p>
-                    <p>
-                        現在、開発・実証を検討しているプロジェクトです。
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">CONTACT</h2>
-            <p class="section-subtitle fade-in">
-                // 製品・導入についてのお問い合わせ
-            </p>
-
-            <div class="contact-box fade-in">
-                <form id="contact-form">
-
-                    <div class="form-group">
-                        <label for="name">お名前 / 貴社名</label>
-                        <input
-                            type="text"
-                            id="name"
-                            class="form-control"
-                            placeholder="山田 太郎"
-                            required
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">メールアドレス</label>
-                        <input
-                            type="email"
-                            id="email"
-                            class="form-control"
-                            placeholder="example@email.com"
-                            required
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">お問い合わせ内容</label>
-                        <textarea
-                            id="message"
-                            class="form-control"
-                            placeholder="ご希望の製品や導入についてご記入ください"
-                            required
-                        ></textarea>
-                    </div>
-
-                    <button
-                        type="submit"
-                        id="submit-btn"
-                        class="btn btn-primary"
-                        style="width: 100%;"
-                    >
-                        メールを送る
-                    </button>
-
-                </form>
-
-                <div class="email-direct">
-                    Direct Email:
-                    <a href="mailto:xnova00.office@gmail.com">
-                        xnova00.office@gmail.com
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Legal Information -->
-    <section id="legal" class="legal-section">
-        <div class="container">
-
-            <h2 class="section-title fade-in">
-                LEGAL INFORMATION
-            </h2>
-            <p class="section-subtitle fade-in">
-                // TERMS, PRIVACY & REFUND POLICY
-            </p>
-
-            <!-- Terms of Service -->
-            <div class="legal-box fade-in" id="terms">
-                <h3>利用規約 / Terms of Service</h3>
-
-                <p>
-                    X-NOVA00が提供するサービスをご利用いただく前に、
-                    以下の利用条件をご確認ください。
-                </p>
-
-                <h4>1. サービスについて</h4>
-                <p>
-                    X-NOVA00は、業務効率化を目的とした
-                    ITシステム、クラウドサービス、
-                    デジタルサービス等を提供します。
-                </p>
-
-                <h4>2. 利用者の責任</h4>
-                <p>
-                    利用者は、本サービスを法令および公序良俗に
-                    反する目的で使用してはなりません。
-                </p>
-
-                <h4>3. サービス内容の変更</h4>
-                <p>
-                    サービスの改善、保守、その他必要な場合、
-                    提供内容を変更または一時停止する場合があります。
-                </p>
-
-                <h4>4. 禁止事項</h4>
-                <ul>
-                    <li>不正アクセスまたはシステムへの妨害行為</li>
-                    <li>第三者の権利を侵害する行為</li>
-                    <li>サービスの不正利用、複製、転売</li>
-                    <li>法令に違反する行為</li>
-                </ul>
-
-                <h4>5. お問い合わせ</h4>
-                <p>
-                    本規約に関するお問い合わせは、
-                    <a href="mailto:xnova00.office@gmail.com">
-                        xnova00.office@gmail.com
-                    </a>
-                    までご連絡ください。
-                </p>
-            </div>
-
-            <!-- Privacy Policy -->
-            <div class="legal-box fade-in" id="privacy">
-                <h3>
-                    プライバシーポリシー / Privacy Policy
-                </h3>
-
-                <p>
-                    X-NOVA00（以下「当方」）は、提供する
-                    勤怠管理システム等のサービスにおいて、
-                    ユーザーのプライバシーを尊重し、
-                    個人情報およびGoogleユーザーデータの
-                    保護に努めます。
-                </p>
-
-                <h4>
-                    1. アクセスされるデータ
-                    （Googleユーザーデータを含む）
-                </h4>
-
-                <p>
-                    当方のアプリケーション（X-NOVA00）が
-                    アクセス、収集、または操作する
-                    データの種類は以下の通りです。
-                </p>
-
-                <ul>
-                    <li>
-                        Googleスプレッドシートへのアクセス権およびデータ
-                        （勤怠記録、打刻データ、社員情報、
-                        システム設定値等）
-                    </li>
-                    <li>
-                        Google認証時に提供される基本プロフィール情報
-                        （氏名、メールアドレス等）
-                    </li>
-                    <li>
-                        お問い合わせやサービス利用時に
-                        提供される情報
-                    </li>
-                </ul>
-
-                <h4>2. データの利用目的</h4>
-
-                <p>
-                    取得およびアクセスしたGoogleユーザーデータは、
-                    以下の目的のためにのみ利用・処理されます。
-                </p>
-
-                <ul>
-                    <li>
-                        X-NOVA00勤怠管理システムのコア機能
-                        （出退勤打刻、勤務時間の自動計算、
-                        修正申請・承認、月別集計）の正確な実行
-                    </li>
-                    <li>
-                        ユーザーアカウントの本人確認および
-                        サポート対応
-                    </li>
-                    <li>
-                        システムの安全性確保および
-                        不正利用の防止
-                    </li>
-                </ul>
-
-                <h4>3. 第三者へのデータ共有</h4>
-
-                <p>
-                    法令に基づく開示請求等、正当な理由がある場合を除き、
-                    取得したGoogleユーザーデータを
-                    ユーザーの事前の同意なく第三者へ
-                    提供、販売、共有することはありません。
-                    なお、ウェブサイトのアクセス解析に伴う
-                    Googleへの情報送信については、
-                    下記「アクセス解析について」に記載しています。
-                </p>
-
-                <h4>
-                    4. データの保存と保護
-                    （Data Storage &amp; Security）
-                </h4>
-
-                <p>
-                    ユーザーデータは、Google Apps Scriptおよび
-                    暗号化されたGoogleスプレッドシート
-                    （Googleドライブ）上で安全に管理され、
-                    不正アクセス、紛失、改ざん等を防止するための
-                    適切な管理体制を維持しています。
-                </p>
-
-                <h4>
-                    5. データの保持と削除
-                    （Data Retention &amp; Deletion）
-                </h4>
-
-                <p>
-                    ユーザーデータは、サービス提供および
-                    法令上必要な期間のみ保持されます。
-                    データの削除をご希望される場合、
-                    またはアカウントの連携解除を希望される場合は、
-                    Googleアカウントのセキュリティ設定画面
-                    （アプリのアクセス権の削除）から
-                    いつでも直接アクセス権を取り消すことができます。
-                    また、個別のお問い合わせフォームやメールでの
-                    削除ご依頼にも速やかに対応いたします。
-                </p>
-
-                <h4>6. アクセス解析について</h4>
-
-                <p>
-                    当サイトでは、閲覧状況を把握してサイトを改善するため、
-                    Google LLCが提供するGoogleアナリティクス4
-                    （GA4）を利用しています。
-                    アクセス解析に際して、Cookie等の技術を使用し、
-                    閲覧したページ、アクセス日時、
-                    利用端末・ブラウザ等の情報が
-                    Googleに送信・処理される場合があります。
-                </p>
-
-                <p>
-                    これらの情報は、Googleの規約・ポリシーに
-                    従って取り扱われます。
-                    Googleによるデータの取り扱いについては、
-                    <a
-                        href="https://policies.google.com/privacy?hl=ja"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Googleプライバシーポリシー
-                    </a>
-                    をご確認ください。
-                    ブラウザでCookieを制限することや、
-                    <a
-                        href="https://tools.google.com/dlpage/gaoptout?hl=ja"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Googleアナリティクス オプトアウト アドオン
-                    </a>
-                    を利用することで、
-                    計測を制限できる場合があります。
-                </p>
-
-                <h4>7. お問い合わせ</h4>
-
-                <p>
-                    プライバシーポリシーおよび
-                    データ取扱いに関するお問い合わせは、
-                    <a href="mailto:xnova00.office@gmail.com">
-                        xnova00.office@gmail.com
-                    </a>
-                    までご連絡ください。
-                </p>
-            </div>
-
-            <!-- Refund Policy -->
-            <div class="legal-box fade-in" id="refund">
-                <h3>返金ポリシー / Refund Policy</h3>
-
-                <p>
-                    X-NOVA00が提供するデジタルサービスについて、
-                    以下の返金方針を適用します。
-                </p>
-
-                <h4>1. 返金について</h4>
-                <p>
-                    サービスに重大な技術的不具合があり、
-                    合理的な期間内に解決できない場合は、
-                    状況を確認したうえで返金を検討します。
-                </p>
-
-                <h4>2. 返金対象外</h4>
-                <p>
-                    利用者都合による購入後のキャンセル、
-                    利用環境による問題、
-                    またはサービスを正常に利用できる場合は、
-                    原則として返金対象外となります。
-                </p>
-
-                <h4>3. 返金の申請</h4>
-                <p>
-                    返金をご希望の場合は、
-                    購入時に使用したメールアドレスと
-                    注文情報を記載のうえ、
-                    <a href="mailto:xnova00.office@gmail.com">
-                        xnova00.office@gmail.com
-                    </a>
-                    までお問い合わせください。
-                </p>
-
-                <h4>4. Paddleによる決済</h4>
-                <p>
-                    Paddleを通じて行われた決済については、
-                    Paddleの決済システムおよび
-                    適用される手続きに従って
-                    返金処理が行われる場合があります。
-                </p>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 X-NOVA00. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <!-- JavaScript -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // Scroll animation
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver(
-                    (entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add('visible');
-                            }
-                        });
-                    },
-                    {
-                        threshold: 0.1
-                    }
-                );
-
-                document.querySelectorAll('.fade-in').forEach(
-                    el => observer.observe(el)
-                );
-            } else {
-                document.querySelectorAll('.fade-in').forEach(
-                    el => el.classList.add('visible')
-                );
-            }
-
-            // Contact form
-            const contactForm = document.getElementById('contact-form');
-            const submitBtn = document.getElementById('submit-btn');
-
-            if (contactForm) {
-                contactForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-
-                    submitBtn.disabled = true;
-                    submitBtn.innerText = '送信中...';
-
-                    // Existing GAS endpoint - unchanged
-                    const gasUrl =
-                        "https://script.google.com/macros/s/AKfycby2lTxZxCv5w62ldYo9cuAtV2feMvawlb1vsDSl0u2kQGlmVEQIJcpXbHa8vxIU1N13kg/exec";
-
-                    const payload = {
-                        name: document.getElementById('name').value,
-                        email: document.getElementById('email').value,
-                        message: document.getElementById('message').value
-                    };
-
-                    (async () => {
-                        try {
-                            await fetch(gasUrl, {
-                                method: 'POST',
-                                mode: 'no-cors',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(payload)
-                            });
-
-                            alert('お問い合わせを受け付けました。');
-                            contactForm.reset();
-
-                        } catch (error) {
-                            alert(
-                                '送信に失敗しました。時間をおいて再度お試しください。'
-                            );
-
-                        } finally {
-                            submitBtn.disabled = false;
-                            submitBtn.innerText = 'メールを送る';
-                        }
-                    })();
-                });
-            }
-        });
-    </script>
+<header>
+<div class="container nav-container">
+<a href="#" class="logo">X-NOVA<span>00</span></a>
+<ul class="nav-links">
+<li><a href="#about">// ABOUT</a></li>
+<li><a href="#services">// SERVICES</a></li>
+<li><a href="#products">// PRODUCTS</a></li>
+<li><a href="#pricing">// PRICING</a></li>
+<li><a href="#contact">// CONTACT</a></li>
+<li><a href="#legal">// LEGAL</a></li>
+</ul>
+</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+<span class="hero-tag fade-in">
+// BUSINESS SOFTWARE DEVELOPMENT & SALES
+</span>
+
+<h1 class="hero-title fade-in">
+<span class="gradient-text">IT化・AI化のススメ</span>
+</h1>
+
+<div class="business-label fade-in">
+業務システム開発・販売
+</div>
+
+<p class="hero-desc fade-in">
+現場の困りごとを、自社開発のシステムで解決します。
+</p>
+
+<p class="hero-desc fade-in">
+X-NOVA00は、勤怠管理システムをはじめとする
+業務ソフトウェアを自社開発・販売しています。
+スマートフォン、NFC、クラウド技術を活用し、
+日々の入力作業や管理業務の負担を軽減します。
+</p>
+
+<a href="#products" class="btn btn-primary fade-in">
+製品を見る
+</a>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+<div class="container">
+<h2 class="section-title fade-in">ABOUT</h2>
+<p class="section-subtitle fade-in">// X-NOVA00について</p>
+
+<div class="grid grid-2">
+<div class="card profile-card fade-in">
+<h3>現場で使えるソフトウェア</h3>
+<p>
+X-NOVA00は、実際に働く人が使いやすい
+業務システムの開発を重視しています。
+複雑な操作を減らし、日常業務に自然に
+組み込める仕組みを目指します。
+</p>
+</div>
+
+<div class="card profile-card fade-in">
+<h3>自社開発・継続提供</h3>
+<p>
+勤怠管理をはじめとする業務ソフトウェアを
+自社で開発し、クラウドサービスとして提供します。
+導入後も継続して利用できる
+システムづくりに取り組んでいます。
+</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section">
+<div class="container">
+<h2 class="section-title fade-in">SERVICES</h2>
+<p class="section-subtitle fade-in">
+// 業務システム開発・販売
+</p>
+
+<div class="grid grid-3">
+<div class="card service-card fade-in">
+<div class="service-icon">[01]</div>
+<h3>勤怠管理ソフトウェア</h3>
+<p>
+スマートフォンから出退勤を記録し、
+勤務時間の管理・集計を行う
+クラウド型の勤怠管理システムです。
+</p>
+</div>
+
+<div class="card service-card fade-in">
+<div class="service-icon">[02]</div>
+<h3>業務システム開発</h3>
+<p>
+手入力や転記作業を減らすための
+業務ソフトウェアを開発します。
+Googleスプレッドシートなどを活用し、
+日常業務の効率化を支援します。
+</p>
+</div>
+
+<div class="card service-card fade-in">
+<div class="service-icon">[03]</div>
+<h3>IT化・AI化システム</h3>
+<p>
+NFC、クラウド、AIなどの技術を取り入れ、
+現場の業務を自動化・効率化する
+ソフトウェアの開発に取り組んでいます。
+</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="section">
+<div class="container">
+<h2 class="section-title fade-in">PRODUCTS</h2>
+<p class="section-subtitle fade-in">
+// 自社開発ソフトウェア・開発プロジェクト
+</p>
+
+<div class="grid grid-3">
+<div class="card product-card fade-in">
+<span class="tag">Business SaaS</span>
+<h3>X-NOVA00 勤怠管理・打刻システム</h3>
+<p>
+飲食店、ホテル、介護施設などの事業者向け
+クラウド型勤怠管理ソフトウェア。
+</p>
+<p>
+従業員はスマートフォンから出退勤を記録。
+管理者は勤務時間、修正申請・承認、
+月別集計などを管理できます。
+</p>
+<p>
+2拠点・最大50名に対応するプランを提供します。
+</p>
+<a href="#pricing" class="btn btn-primary">
+料金を見る
+</a>
+</div>
+
+<div class="card product-card fade-in">
+<span class="tag">Development Project</span>
+<h3>高齢者あんしんお守り</h3>
+<p>
+NFCタグを活用し、緊急時の連絡や
+地域での見守りにつなげる仕組みを構想しています。
+</p>
+<p>現在、開発・実証を検討しているプロジェクトです。</p>
+</div>
+
+<div class="card product-card fade-in">
+<span class="tag">Development Project</span>
+<h3>こども登下校お守り</h3>
+<p>
+NFCタグを活用し、登下校時の確認や
+保護者への通知を支援するシステムを構想しています。
+</p>
+<p>現在、開発・実証を検討しているプロジェクトです。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="section">
+<div class="container">
+<h2 class="section-title fade-in">PRICING</h2>
+<p class="section-subtitle fade-in">
+// NFC ATTENDANCE SYSTEM
+</p>
+
+<div class="card pricing-card fade-in">
+<span class="tag">SaaS / Attendance System</span>
+
+<h3>
+X-NOVA00 勤怠管理・打刻システム（2拠点 / 50名対応）
+</h3>
+
+<p>
+NFC・スマートフォンを利用したクラウド型の
+勤怠管理システムです。
+複数拠点での打刻と最大50名までの
+スタッフ管理をオンラインで実現します。
+</p>
+
+<div class="price-row">
+初期導入費用：
+<span class="price-value">$199 USD</span>
+</div>
+
+<div class="price-row">
+月額利用料金：
+<span class="price-value">$69 USD / 月</span>
+</div>
+
+<p class="price-note">
+※ 表示価格および提供内容の詳細については、
+お申し込み前にご確認ください。
+</p>
+
+<p>
+ソフトウェアはオンラインで提供します。
+お申し込み後、利用に必要なWebアプリケーションの
+URLと設定方法をご案内します。
+物理的な商品の発送はありません。
+</p>
+
+<a href="#contact" class="btn btn-primary">
+導入について問い合わせる
+</a>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+<div class="container">
+<h2 class="section-title fade-in">CONTACT</h2>
+<p class="section-subtitle fade-in">
+// 製品・導入についてのお問い合わせ
+</p>
+
+<div class="contact-box fade-in">
+<form id="contact-form">
+<div class="form-group">
+<label for="name">お名前 / 貴社名</label>
+<input type="text" id="name" class="form-control" placeholder="山田 太郎" required>
+</div>
+
+<div class="form-group">
+<label for="email">メールアドレス</label>
+<input type="email" id="email" class="form-control" placeholder="example@email.com" required>
+</div>
+
+<div class="form-group">
+<label for="message">お問い合わせ内容</label>
+<textarea id="message" class="form-control" placeholder="ご希望の製品や導入についてご記入ください" required></textarea>
+</div>
+
+<button type="submit" id="submit-btn" class="btn btn-primary" style="width:100%">
+メールを送る
+</button>
+</form>
+
+<div class="email-direct">
+Direct Email:
+<a href="mailto:xnova00.office@gmail.com">
+xnova00.office@gmail.com
+</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- LEGAL -->
+<section id="legal" class="legal-section">
+<div class="container">
+
+<h2 class="section-title fade-in">LEGAL INFORMATION</h2>
+<p class="section-subtitle fade-in">
+// TERMS, PRIVACY & REFUND POLICY
+</p>
+
+<!-- TERMS -->
+<div class="legal-box fade-in" id="terms">
+<h3>利用規約 / Terms of Service</h3>
+<p>
+X-NOVA00が提供するサービスをご利用いただく前に、
+以下の利用条件をご確認ください。
+</p>
+
+<h4>1. サービスについて</h4>
+<p>
+X-NOVA00は、業務効率化を目的とした
+ITシステム、クラウドサービス、
+デジタルサービス等を提供します。
+</p>
+
+<h4>2. 利用者の責任</h4>
+<p>
+利用者は、本サービスを法令および公序良俗に
+反する目的で使用してはなりません。
+</p>
+
+<h4>3. サービス内容の変更</h4>
+<p>
+サービスの改善、保守、その他必要な場合、
+提供内容を変更または一時停止する場合があります。
+</p>
+
+<h4>4. 禁止事項</h4>
+<ul>
+<li>不正アクセスまたはシステムへの妨害行為</li>
+<li>第三者の権利を侵害する行為</li>
+<li>サービスの不正利用、複製、転売</li>
+<li>法令に違反する行為</li>
+</ul>
+
+<h4>5. お問い合わせ</h4>
+<p>
+本規約に関するお問い合わせは、
+<a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com</a>
+までご連絡ください。
+</p>
+</div>
+
+<!-- PRIVACY -->
+<div class="legal-box fade-in" id="privacy">
+<h3>プライバシーポリシー / Privacy Policy</h3>
+
+<p>
+X-NOVA00（以下「当方」）は、提供する勤怠管理システム等のサービスにおいて、
+ユーザーのプライバシーを尊重し、
+個人情報およびGoogleユーザーデータの保護に努めます。
+</p>
+
+<h4>1. アクセスされるデータ（Googleユーザーデータを含む）</h4>
+<p>
+当方のアプリケーション（X-NOVA00）がアクセス、
+収集、または操作するデータの種類は以下の通りです。
+</p>
+<ul>
+<li>
+Googleスプレッドシートへのアクセス権およびデータ
+（勤怠記録、打刻データ、社員情報、システム設定値等）
+</li>
+<li>
+Google認証時に提供される基本プロフィール情報
+（氏名、メールアドレス等）
+</li>
+<li>お問い合わせやサービス利用時に提供される情報</li>
+</ul>
+
+<h4>2. データの利用目的</h4>
+<p>
+取得およびアクセスしたGoogleユーザーデータは、
+以下の目的のためにのみ利用・処理されます。
+</p>
+<ul>
+<li>
+X-NOVA00勤怠管理システムのコア機能
+（出退勤打刻、勤務時間の自動計算、
+修正申請・承認、月別集計）の正確な実行
+</li>
+<li>ユーザーアカウントの本人確認およびサポート対応</li>
+<li>システムの安全性確保および不正利用の防止</li>
+</ul>
+
+<h4>3. 第三者へのデータ共有</h4>
+<p>
+法令に基づく開示請求等、正当な理由がある場合を除き、
+取得したGoogleユーザーデータを
+ユーザーの事前の同意なく第三者へ提供、
+販売、共有することはありません。
+なお、ウェブサイトのアクセス解析に伴う
+Googleへの情報送信については、
+下記「アクセス解析について」に記載しています。
+</p>
+
+<h4>4. データの保存と保護（Data Storage &amp; Security）</h4>
+<p>
+ユーザーデータは、Google Apps Scriptおよび
+暗号化されたGoogleスプレッドシート
+（Googleドライブ）上で安全に管理され、
+不正アクセス、紛失、改ざん等を防止するための
+適切な管理体制を維持しています。
+</p>
+
+<h4>5. データの保持と削除（Data Retention &amp; Deletion）</h4>
+<p>
+ユーザーデータは、サービス提供および
+法令上必要な期間のみ保持されます。
+データの削除をご希望される場合、
+またはアカウントの連携解除を希望される場合は、
+Googleアカウントのセキュリティ設定画面
+（アプリのアクセス権の削除）から
+いつでも直接アクセス権を取り消すことができます。
+また、個別のお問い合わせフォームやメールでの
+削除ご依頼にも速やかに対応いたします。
+</p>
+
+<h4>6. アクセス解析について</h4>
+<p>
+当サイトでは、閲覧状況を把握してサイトを改善するため、
+Google LLCが提供するGoogleアナリティクス4（GA4）を利用しています。
+アクセス解析に際して、Cookie等の技術を使用し、
+閲覧したページ、アクセス日時、
+利用端末・ブラウザ等の情報が
+Googleに送信・処理される場合があります。
+</p>
+<p>
+これらの情報は、Googleの規約・ポリシーに従って取り扱われます。
+Googleによるデータの取り扱いについては、
+<a href="https://policies.google.com/privacy?hl=ja" target="_blank" rel="noopener noreferrer">Googleプライバシーポリシー</a>
+をご確認ください。
+ブラウザでCookieを制限することや、
+<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener noreferrer">Googleアナリティクス オプトアウト アドオン</a>
+を利用することで、計測を制限できる場合があります。
+</p>
+
+<h4>7. お問い合わせ</h4>
+<p>
+プライバシーポリシーおよびデータ取扱いに関するお問い合わせは、
+<a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com</a>
+までご連絡ください。
+</p>
+</div>
+
+<!-- REFUND -->
+<div class="legal-box fade-in" id="refund">
+<h3>返金ポリシー / Refund Policy</h3>
+
+<p>
+X-NOVA00が提供するデジタルサービスについて、
+以下の返金方針を適用します。
+</p>
+
+<h4>1. 返金について</h4>
+<p>
+サービスに重大な技術的不具合があり、
+合理的な期間内に解決できない場合は、
+状況を確認したうえで返金を検討します。
+</p>
+
+<h4>2. 返金対象外</h4>
+<p>
+利用者都合による購入後のキャンセル、
+利用環境による問題、
+またはサービスを正常に利用できる場合は、
+原則として返金対象外となります。
+</p>
+
+<h4>3. 返金の申請</h4>
+<p>
+返金をご希望の場合は、
+購入時に使用したメールアドレスと注文情報を記載のうえ、
+<a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com</a>
+までお問い合わせください。
+</p>
+
+<h4>4. Paddleによる決済</h4>
+<p>
+Paddleを通じて行われた決済については、
+Paddleの決済システムおよび適用される手続きに従って
+返金処理が行われる場合があります。
+</p>
+</div>
+
+</div>
+</section>
+
+<footer>
+<div class="container">
+<p>&copy; 2026 X-NOVA00. All Rights Reserved.</p>
+</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+
+if('IntersectionObserver' in window){
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add('visible');
+}
+});
+},{threshold:.1});
+
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+}else{
+document.querySelectorAll('.fade-in').forEach(el=>el.classList.add('visible'));
+}
+
+const contactForm=document.getElementById('contact-form');
+const submitBtn=document.getElementById('submit-btn');
+
+if(contactForm){
+contactForm.addEventListener('submit',e=>{
+e.preventDefault();
+
+submitBtn.disabled=true;
+submitBtn.innerText='送信中...';
+
+const gasUrl="https://script.google.com/macros/s/AKfycby2lTxZxCv5w62ldYo9cuAtV2feMvawlb1vsDSl0u2kQGlmVEQIJcpXbHa8vxIU1N13kg/exec";
+
+const payload={
+name:document.getElementById('name').value,
+email:document.getElementById('email').value,
+message:document.getElementById('message').value
+};
+
+(async()=>{
+try{
+await fetch(gasUrl,{
+method:'POST',
+mode:'no-cors',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify(payload)
+});
+
+alert('送信処理を実行しました。お問い合わせが届いているかご確認ください。');
+contactForm.reset();
+
+}catch(error){
+alert('送信に失敗しました。時間をおいて再度お試しください。');
+}finally{
+submitBtn.disabled=false;
+submitBtn.innerText='メールを送る';
+}
+})();
+});
+}
+});
+</script>
 
 </body>
 </html>
