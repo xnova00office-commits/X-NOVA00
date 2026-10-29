@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="prXUu7VgkjX3tjdmuRCAHx5vn75Op4pviQRCFMh_QcY" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-NOVA00 | IT Consultant & NFC Solutions</title>
+    <title>X-NOVA00 | 現場のIT改善・業務システム開発</title>
     <!-- Google Analytics 4: X-NOVA00 official website -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QFJNOVCHCB"></script>
     <script>
@@ -18,7 +18,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        /* --- CSS Reset & Variables --- */
         :root {
             --bg-color: #0a0b10;
             --card-bg: rgba(22, 27, 38, 0.7);
@@ -31,31 +30,25 @@
             --font-body: 'Inter', sans-serif;
             --font-code: 'JetBrains Mono', monospace;
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-padding-top: 80px; }
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: var(--font-body);
             line-height: 1.6;
             overflow-x: hidden;
-            background-image: 
-             radial-gradient(circle at 15% 15%, rgba(112, 0, 255, 0.15) 0%, transparent 40%), 
+            background-image:
+             radial-gradient(circle at 15% 15%, rgba(112, 0, 255, 0.15) 0%, transparent 40%),
              radial-gradient(circle at 85% 85%, rgba(0, 240, 255, 0.12) 0%, transparent 40%);
             background-attachment: fixed;
         }
-        /* --- Global Components --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
+        a:focus-visible, button:focus-visible, .form-control:focus-visible {
+            outline: 2px solid var(--primary-accent);
+            outline-offset: 3px;
         }
-        .section {
-            padding: 100px 0;
-        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 100px 0; }
         .section-title {
             font-family: var(--font-head);
             font-size: 2.2rem;
@@ -78,13 +71,16 @@
         .section-subtitle {
             color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 48px;
+            margin-bottom: 20px;
             font-family: var(--font-code);
         }
-        .grid {
-            display: grid;
-            gap: 24px;
+        .section-note {
+            color: var(--text-muted);
+            max-width: 720px;
+            margin-bottom: 40px;
+            font-size: 0.95rem;
         }
+        .grid { display: grid; gap: 24px; }
         .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
         .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
         .card {
@@ -93,13 +89,29 @@
             border-radius: 12px;
             padding: 32px;
             backdrop-filter: blur(12px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: border-color 0.3s ease;
         }
-        .card:hover {
-            border-color: rgba(0, 240, 255, 0.4);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.15);
+        .card:hover { border-color: rgba(0, 240, 255, 0.4); }
+        .card h3 { font-family: var(--font-head); margin-bottom: 12px; font-size: 1.25rem; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; }
+        .card p + p { margin-top: 12px; }
+        .profile-card { border-left: 4px solid var(--primary-accent); }
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--primary-accent);
+            border-radius: 4px;
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            margin-bottom: 12px;
         }
+        .tag-concept {
+            background: rgba(138, 153, 173, 0.12);
+            color: var(--text-muted);
+        }
+        .concept-card { border-style: dashed; }
+        .price { color: var(--text-main) !important; font-weight: 600; }
         .btn {
             display: inline-block;
             padding: 12px 28px;
@@ -109,7 +121,7 @@
             font-size: 0.9rem;
             text-decoration: none;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, box-shadow 0.2s ease;
             border: none;
         }
         .btn-primary {
@@ -117,11 +129,8 @@
             color: #000;
             box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
         }
-        .btn-primary:hover {
-            background: #fff;
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
-        }
-        /* --- Header & Nav --- */
+        .btn-primary:hover { background: #fff; box-shadow: 0 0 25px rgba(0, 240, 255, 0.8); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
         header {
             position: fixed;
             top: 0;
@@ -131,12 +140,7 @@
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-color);
         }
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
         .logo {
             font-family: var(--font-head);
             font-size: 1.4rem;
@@ -145,14 +149,8 @@
             text-decoration: none;
             letter-spacing: 1px;
         }
-        .logo span {
-            color: var(--primary-accent);
-        }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-        }
+        .logo span { color: var(--primary-accent); }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
@@ -160,16 +158,19 @@
             font-size: 0.8rem;
             transition: color 0.2s ease;
         }
-        .nav-links a:hover {
-            color: var(--primary-accent);
+        .nav-links a:hover { color: var(--primary-accent); }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            padding: 8px 14px;
+            cursor: pointer;
         }
-        /* --- Hero Section --- */
-        .hero {
-            padding: 180px 0 100px 0;
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-        }
+        .hero { padding: 180px 0 100px 0; min-height: 80vh; display: flex; align-items: center; }
         .hero-tag {
             font-family: var(--font-code);
             color: var(--primary-accent);
@@ -189,58 +190,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .hero-desc {
-            max-width: 650px;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 32px;
-        }
-        /* --- Profile / Strengths --- */
-        .profile-card {
-            border-left: 4px solid var(--primary-accent);
-        }
-        .profile-card h3 {
-            font-family: var(--font-head);
-            margin-bottom: 12px;
-            font-size: 1.3rem;
-        }
-        /* --- Services --- */
-        .service-icon {
-            font-family: var(--font-code);
-            color: var(--primary-accent);
-            font-size: 1.2rem;
-            margin-bottom: 16px;
-        }
-        .service-card h3 {
-            font-family: var(--font-head);
-            margin-bottom: 12px;
-            font-size: 1.2rem;
-        }
-        .service-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-        /* --- Products --- */
-        .tag {
-            display: inline-block;
-            padding: 4px 10px;
-            background: rgba(0, 240, 255, 0.1);
-            color: var(--primary-accent);
-            border-radius: 4px;
-            font-family: var(--font-code);
-            font-size: 0.75rem;
-            margin-bottom: 12px;
-        }
-        .product-card h3 {
-            font-family: var(--font-head);
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-        }
-        .product-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-        /* --- Contact --- */
+        .hero-desc { max-width: 650px; color: var(--text-muted); font-size: 1.1rem; margin-bottom: 32px; }
         .contact-box {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -249,9 +199,7 @@
             max-width: 700px;
             margin: 0 auto;
         }
-        .form-group {
-            margin-bottom: 20px;
-        }
+        .form-group { margin-bottom: 20px; }
         .form-group label {
             display: block;
             font-family: var(--font-code);
@@ -270,14 +218,17 @@
             font-size: 0.95rem;
             transition: border-color 0.2s ease;
         }
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-accent);
+        .form-control:focus { border-color: var(--primary-accent); }
+        textarea.form-control { resize: vertical; min-height: 120px; }
+        .form-status {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-left: 3px solid var(--primary-accent);
+            padding-left: 12px;
         }
-        textarea.form-control {
-            resize: vertical;
-            min-height: 120px;
-        }
+        .form-status[hidden] { display: none; }
+        .form-status.error { border-left-color: #ff6b6b; color: #ffb3b3; }
         .email-direct {
             margin-top: 24px;
             text-align: center;
@@ -285,11 +236,7 @@
             font-size: 0.9rem;
             color: var(--text-muted);
         }
-        .email-direct a {
-            color: var(--primary-accent);
-            text-decoration: none;
-        }
-        /* --- Legal & Privacy Section --- */
+        .email-direct a { color: var(--primary-accent); text-decoration: none; }
         .legal-section {
             background: rgba(14, 18, 26, 0.95);
             border-top: 1px solid var(--border-color);
@@ -310,30 +257,11 @@
             font-size: 1.3rem;
             margin-bottom: 16px;
         }
-        .legal-box h4 {
-            color: var(--text-main);
-            font-size: 1rem;
-            margin-top: 20px;
-            margin-bottom: 8px;
-        }
-        .legal-box p {
-            margin-bottom: 12px;
-            line-height: 1.7;
-            color: var(--text-muted);
-        }
-        .legal-box ul {
-            padding-left: 20px;
-            margin-bottom: 12px;
-        }
-        .legal-box li {
-            margin-bottom: 6px;
-            color: var(--text-muted);
-        }
-        .legal-box a {
-            color: var(--primary-accent);
-            text-decoration: underline;
-        }
-        /* --- Footer --- */
+        .legal-box h4 { color: var(--text-main); font-size: 1rem; margin-top: 20px; margin-bottom: 8px; }
+        .legal-box p { margin-bottom: 12px; line-height: 1.7; color: var(--text-muted); }
+        .legal-box ul { padding-left: 20px; margin-bottom: 12px; }
+        .legal-box li { margin-bottom: 6px; color: var(--text-muted); }
+        .legal-box a { color: var(--primary-accent); text-decoration: underline; }
         footer {
             border-top: 1px solid var(--border-color);
             padding: 30px 0;
@@ -342,22 +270,34 @@
             font-size: 0.8rem;
             color: var(--text-muted);
         }
-        /* --- Scroll Animation Styles --- */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in { opacity: 1; transform: none; transition: none; }
         }
-        /* --- Responsive --- */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
             .section { padding: 60px 0; }
             .contact-box { padding: 24px; }
             .legal-box { padding: 20px; }
+            .nav-toggle { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: rgba(10, 11, 16, 0.97);
+                border-bottom: 1px solid var(--border-color);
+                padding: 8px 24px 16px;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a { display: block; padding: 12px 0; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -366,10 +306,12 @@
     <header>
         <div class="container nav-container">
             <a href="#" class="logo">X-NOVA<span>00</span></a>
-            <ul class="nav-links">
+            <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links">MENU</button>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#about">// ABOUT</a></li>
                 <li><a href="#services">// SERVICES</a></li>
                 <li><a href="#products">// PRODUCTS</a></li>
+                <li><a href="#concepts">// CONCEPTS</a></li>
                 <li><a href="#contact">// CONTACT</a></li>
                 <li><a href="#legal">// LEGAL</a></li>
             </ul>
@@ -379,13 +321,13 @@
     <!-- 2. Hero Section -->
     <section class="hero">
         <div class="container">
-            <span class="hero-tag fade-in">// IT CONSULTANT & NFC SOLUTIONS</span>
+            <span class="hero-tag fade-in">// IT IMPROVEMENT &amp; SYSTEM DEVELOPMENT</span>
             <h1 class="hero-title fade-in">
                 現場の課題を、<br>
-                <span class="gradient-text">直感的で確実なシステム</span>へ。
+                <span class="gradient-text">直感的で使いやすいシステム</span>へ。
             </h1>
             <p class="hero-desc fade-in">
-                複雑な操作や机上の理論はいりません。X-NOVA00は、現場で働く「人」に寄り添い、NFCをはじめとする最先端の仕組みで、確実に成果が出るIT改善・システム構築を実現します。
+                X-NOVA00は、現場で働く「人」の目線で、業務の見直しとシステム構築に取り組んでいます。個別のご相談から、勤怠管理ソフトの提供まで承ります。
             </p>
             <a href="#contact" class="btn btn-primary fade-in">お問い合わせはこちら</a>
         </div>
@@ -395,65 +337,75 @@
     <section id="about" class="section">
         <div class="container">
             <h2 class="section-title fade-in">ABOUT</h2>
-            <p class="section-subtitle fade-in">// 姿勢と強み</p>
+            <p class="section-subtitle fade-in">// 姿勢</p>
             <div class="grid grid-2">
                 <div class="card profile-card fade-in">
                     <h3>現場ファーストの徹底</h3>
-                    <p>専門用語を排し、実際にシステムを使う現場の皆様の目線に立った対話を最優先します。本当に「使われる」仕組みしか構築しません。</p>
+                    <p>専門用語を排し、実際にシステムを使う現場の皆様の目線に立った対話を大切にします。日々の業務で「使われる」仕組みを目指します。</p>
                 </div>
                 <div class="card profile-card fade-in">
-                    <h3>有料でも欲しい仕組みの提供</h3>
-                    <p>「あったらいいな」ではなく、「これなしでは回らない」レベルの価値を提供。不正やミスの隙を与えないタイムカードシステムなど、盲点を突いた実践的ソリューションを構築します。</p>
+                    <h3>業務の盲点に向き合う</h3>
+                    <p>「あったらいいな」で終わらず、日々の業務に欠かせない仕組みづくりを目指します。勤怠の記録のように、ミスや手間が生まれやすい部分の改善に取り組みます。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 4. Services -->
+    <!-- 4. Services (個別相談・個別対応) -->
     <section id="services" class="section">
         <div class="container">
             <h2 class="section-title fade-in">SERVICES</h2>
-            <p class="section-subtitle fade-in">// 提供可能なソリューション</p>
-            <div class="grid grid-3">
-                <div class="card service-card fade-in">
-                    <div class="service-icon">[01]</div>
+            <p class="section-subtitle fade-in">// 個別のご相談・ご依頼</p>
+            <p class="section-note fade-in">以下は、お客様の業務に合わせて個別にご相談を伺うサービスです。内容や費用は、ご相談のうえでご案内します。</p>
+            <div class="grid grid-2">
+                <div class="card fade-in">
+                    <span class="tag">個別相談</span>
                     <h3>現場のIT改善</h3>
-                    <p>業務の流れを観察・分析し、無駄な作業をカット。現場スタッフが直感的に使える運用システムを設計・導入します。</p>
+                    <p>業務の流れを伺い、無駄な作業を減らす方法を一緒に考えます。現場スタッフが直感的に使える運用システムの設計・導入をご提案します。</p>
                 </div>
-                <div class="card service-card fade-in">
-                    <div class="service-icon">[02]</div>
-                    <h3>X-NOVA00 タイムカード</h3>
-                    <p>スマートフォンを使った出退勤・休憩・外出・戻りの打刻に対応。QRコードやNFCを活用し、勤務時間の集計や管理者による修正承認を支援します。</p>
-                </div>
-                <div class="card service-card fade-in">
-                    <div class="service-icon">[03]</div>
+                <div class="card fade-in">
+                    <span class="tag">個別相談</span>
                     <h3>PC入力作業の効率化</h3>
-                    <p>手入力による転記作業や二重入力を徹底排除。自動化ロジックの組み込みで入力ミスゼロと時間の短縮を実現します。</p>
+                    <p>手入力による転記や二重入力の手間を減らすため、業務に合わせた自動化の仕組みをご提案します。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 5. Products / Ideas -->
+    <!-- 5. Products (提供中のソフトウェア) -->
     <section id="products" class="section">
         <div class="container">
             <h2 class="section-title fade-in">PRODUCTS</h2>
-            <p class="section-subtitle fade-in">// 実績・アイデア</p>
-            <div class="grid grid-3">
-                <div class="card product-card fade-in">
-                    <span class="tag">NFC Solution</span>
+            <p class="section-subtitle fade-in">// 提供中のソフトウェア</p>
+            <div class="grid grid-2">
+                <div class="card fade-in">
+                    <span class="tag">提供中</span>
                     <h3>X-NOVA00 タイムカード</h3>
-                    <p><strong>初期費用 30,000円・月額 10,000円</strong>（国内・海外共通の基準価格／海外での請求通貨・換算額は個別にご案内）。出退勤・休憩・外出・戻りの記録、勤務時間の集計、位置情報による打刻範囲の確認、管理者による修正承認に対応。導入内容・利用条件はお問い合わせください。</p>
+                    <p>スマートフォンを使った勤怠管理ソフトです。出退勤・休憩・外出・戻りの記録、勤務時間の集計、位置情報による打刻範囲の確認、管理者による修正承認に対応しています。</p>
+                    <!-- [要確認] QRコード/NFC打刻の実装状況が確認できるまで記載しない -->
+                    <p class="price">初期費用 30,000円・月額 10,000円(基準価格)</p>
+                    <p>税の扱い、初期費用に含まれる内容、利用条件、お支払い方法は、お問い合わせの際にご案内します。</p>
                 </div>
-                <div class="card product-card fade-in">
-                    <span class="tag">Safety Tech</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5b. Concepts (未提供・構想段階) -->
+    <section id="concepts" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">CONCEPTS</h2>
+            <p class="section-subtitle fade-in">// 開発構想(未提供)</p>
+            <p class="section-note fade-in">以下は構想段階の内容です。仕様・提供時期・料金は決まっておらず、現在は販売・お申し込みを受け付けていません。</p>
+            <div class="grid grid-2">
+                <div class="card concept-card fade-in">
+                    <span class="tag tag-concept">構想段階・未提供</span>
                     <h3>高齢者あんしんお守り</h3>
-                    <p>NFC技術を内蔵したお守り。緊急時の連絡先保持や見守り体制の強化を、さりげなく身につけられる形で実現。</p>
+                    <p>NFC技術を活用し、緊急時の連絡先の保持や見守りを、さりげなく身につけられる形で支える仕組みを構想しています。</p>
                 </div>
-                <div class="card product-card fade-in">
-                    <span class="tag">Safety Tech</span>
+                <div class="card concept-card fade-in">
+                    <span class="tag tag-concept">構想段階・未提供</span>
                     <h3>こども登下校お守り</h3>
-                    <p>通学バッグにかざすだけで無事の到着・帰宅を知らせる安全管理ソリューション。保護者に安心を提供します。</p>
+                    <p>通学バッグにかざすことで、到着や帰宅を保護者にお知らせする仕組みを構想しています。</p>
                 </div>
             </div>
         </div>
@@ -478,7 +430,8 @@
                         <label for="message">ご相談内容</label>
                         <textarea id="message" class="form-control" placeholder="ご相談内容や解決したい課題をご記入ください" required></textarea>
                     </div>
-                    <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">メールを送る</button>
+                    <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">送信する</button>
+                    <p id="form-status" class="form-status" role="status" aria-live="polite" hidden></p>
                 </form>
                 <div class="email-direct">
                     Direct Email: <a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com</a>
@@ -494,7 +447,7 @@
             <p class="section-subtitle fade-in">
                 // TERMS, PRIVACY & REFUND POLICY
             </p>
-            
+
             <!-- 利用規約 -->
             <div class="legal-box fade-in" id="terms">
                 <h3>利用規約 / Terms of Service</h3>
@@ -635,29 +588,46 @@
         </div>
     </footer>
 
-    <!-- JS: Scroll Animation & Real Mail Sending -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Scroll animation
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     }
                 });
-            }, {
-                threshold: 0.1
-            });
+            }, { threshold: 0.1 });
             document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-            // メール自動送信処理
+            // Mobile navigation
+            const navToggle = document.getElementById('nav-toggle');
+            const navLinks = document.getElementById('nav-links');
+            const setNav = (open) => {
+                navLinks.classList.toggle('open', open);
+                navToggle.setAttribute('aria-expanded', String(open));
+                navToggle.textContent = open ? 'CLOSE' : 'MENU';
+            };
+            navToggle.addEventListener('click', () => setNav(!navLinks.classList.contains('open')));
+            navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNav(false)));
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setNav(false); });
+
+            // Contact form (GAS endpoint and no-cors method unchanged)
             const contactForm = document.getElementById('contact-form');
             const submitBtn = document.getElementById('submit-btn');
+            const statusEl = document.getElementById('form-status');
+            const showStatus = (text, isError) => {
+                statusEl.textContent = text;
+                statusEl.classList.toggle('error', Boolean(isError));
+                statusEl.hidden = false;
+            };
 
             if (contactForm) {
                 contactForm.addEventListener('submit', (e) => {
-                    e.preventDefault();                                        
+                    e.preventDefault();
                     submitBtn.disabled = true;
-                    submitBtn.innerText = '送信中...';
+                    submitBtn.innerText = '送信処理中...';
+                    statusEl.hidden = true;
                     const gasUrl = "https://script.google.com/macros/s/AKfycby2lTxZxCv5w62ldYo9cuAtV2feMvawlb1vsDSl0u2kQGlmVEQIJcpXbHa8vxIU1N13kg/exec";
                     const payload = {
                         name: document.getElementById('name').value,
@@ -675,13 +645,13 @@
                                 },
                                 body: JSON.stringify(payload)
                             });
-                            alert('お問い合わせメールを送信しました。');
-                            contactForm.reset();
+                            // no-cors のため、相手側に届いたかはこのページでは確認できない。入力内容は消さない。
+                            showStatus('送信処理を行いました。このページでは、届いたかどうかを確認できません。数日たっても返信がない場合は、下記のメールアドレスへ直接ご連絡ください。入力内容はそのまま残しています。', false);
                         } catch (error) {
-                            alert('送信に失敗しました。時間をおいて再度お試しください。');
+                            showStatus('送信できませんでした。通信状況をご確認のうえ、もう一度お試しいただくか、下記のメールアドレスへ直接ご連絡ください。入力内容はそのまま残しています。', true);
                         } finally {
                             submitBtn.disabled = false;
-                            submitBtn.innerText = 'メールを送る';
+                            submitBtn.innerText = '送信する';
                         }
                     })();
                 });
