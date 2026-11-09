@@ -38,6 +38,12 @@ a:focus-visible,button:focus-visible,.form-control:focus-visible{outline:2px sol
 .card ul{margin:12px 0 0 20px;color:var(--text-muted);font-size:.95rem}
 .card li{margin-bottom:6px}
 .card .btn{margin-top:20px}
+.env-box{margin-top:24px;padding:20px 24px;border:1px solid var(--border-color);border-left:4px solid var(--primary-accent);border-radius:8px;background:rgba(0,0,0,.25)}
+.env-box h4{font-family:var(--font-head);font-size:1.1rem;color:var(--text-main);margin-bottom:14px}
+.env-box ul{list-style:none;margin:0;padding:0}
+.env-box li{margin-bottom:14px;line-height:1.7;word-break:break-word}
+.env-box li:last-child{margin-bottom:0}
+.env-box li strong{display:block;color:var(--primary-accent);font-family:var(--font-code);font-size:.8rem;margin-bottom:2px}
 .profile-card{border-left:4px solid var(--primary-accent)}
 .tag{display:inline-block;padding:4px 10px;background:rgba(0,240,255,.1);color:var(--primary-accent);border-radius:4px;font-family:var(--font-code);font-size:.75rem;margin-bottom:12px}
 .price{color:var(--text-main)!important;font-weight:600;font-size:1.1rem!important}
@@ -153,7 +159,16 @@ footer a:hover{color:var(--primary-accent)}
 <li>日本語・英語の表示切り替え</li>
 <li>最大2拠点・従業員最大50名まで登録可能</li>
 </ul>
-<p class="price">初期費用 30,000円 / 月額 10,000円(税込)</p>
+<p class="price">初期費用 30,000円（税込） / 月額 10,000円（税込）</p>
+<div class="env-box">
+<h4>ご利用に必要な環境</h4>
+<ul>
+<li><strong>管理者</strong>Googleアカウントが必要です。Googleログインを使用し、勤怠データをGoogleスプレッドシートで管理します。</li>
+<li><strong>従業員</strong>スマートフォンからQRコードで打刻できます。通常のQR打刻ではGoogleアカウントは不要です。</li>
+<li><strong>位置情報</strong>GPSによる打刻場所の確認のため、スマートフォンの位置情報へのアクセス許可が必要です。</li>
+<li><strong>通信環境</strong>インターネット接続が必要です。</li>
+</ul>
+</div>
 <p>オンライン決済でのお申し込みは、現在準備中です。ご利用条件・返金条件は、本ページの利用規約・返金ポリシーをご確認ください。ご質問は、お問い合わせください。</p>
 <!-- Paddleのチェックアウトを設置したら、下のボタンをチェックアウトのリンクに差し替える -->
 <a href="#contact" class="btn btn-primary">お問い合わせ</a>
@@ -246,7 +261,7 @@ Direct Email: <a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com
 <p>本サービスのオンライン決済を開始した場合、決済は、販売代行業者(Merchant of Record)であるPaddle.comが行います。決済の処理に必要な情報(氏名、メールアドレス、請求先情報、支払い情報など)は、Paddle.comが取得・処理します。当方は、クレジットカード番号などの支払い情報を保持しません。Paddle.comによる情報の取り扱いについては、<a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer">Paddleのプライバシーポリシー</a>をご確認ください。</p>
 
 <h4>5. データの保存と保護（Data Storage &amp; Security）</h4>
-<p>ユーザーデータは、Google Apps Scriptおよび暗号化されたGoogleスプレッドシート（Googleドライブ）上で安全に管理され、不正アクセス、紛失、改ざん等を防止するための適切な管理体制を維持しています。</p>
+<p>ユーザーデータはGoogle Apps ScriptおよびGoogleスプレッドシートを利用して管理し、適切なアクセス権限の設定等により保護に努めます。</p>
 
 <h4>6. データの保持と削除（Data Retention &amp; Deletion）</h4>
 <p>ユーザーデータは、サービス提供および法令上必要な期間のみ保持されます。データの削除をご希望される場合、またはアカウントの連携解除を希望される場合は、Googleアカウントのセキュリティ設定画面（アプリのアクセス権の削除）からいつでも直接アクセス権を取り消すことができます。また、個別のお問い合わせフォームやメールでの削除ご依頼にも速やかに対応いたします。</p>
@@ -263,11 +278,11 @@ Direct Email: <a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com
 <h3>返金ポリシー / Refund Policy</h3>
 <p>本サービスの返金について、以下の方針を適用します。</p>
 <h4>1. 返金期間</h4>
-<p>購入日から14日以内であれば、理由を問わず、返金をお申し込みいただけます。</p>
+<p>購入日から14日以内であれば、返金を申請できます(気が変わった場合を含みます)。</p>
 <h4>2. 返金の申請方法</h4>
-<p>Paddle.com経由でご購入いただいた場合、返金は、販売代行業者であるPaddle.comが処理します。ご注文後に届く領収書のメールに記載のリンク、または <a href="https://paddle.net" target="_blank" rel="noopener noreferrer">paddle.net</a> から、返金をお申し込みください。ご不明な点は、<a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com</a> までお問い合わせください。</p>
-<h4>3. 返金方法</h4>
-<p>返金は、ご購入時のお支払い方法に対して行われます。</p>
+<p>Paddle.com経由でご購入いただいた場合、返金は、販売代行業者であるPaddle.comが取り扱います。<a href="https://paddle.net" target="_blank" rel="noopener noreferrer">paddle.net</a> から、返金を申請してください。オンライン決済の開始前、またはご不明な点は、<a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com</a> までご連絡ください。</p>
+<h4>3. 返金の処理</h4>
+<p>返金の可否、時期、方法は、<a href="https://www.paddle.com/legal/refund-policy" target="_blank" rel="noopener noreferrer">Paddleの返金ポリシー</a>および購入者向け規約に従います。</p>
 </div>
 </div>
 </section>
