@@ -1,189 +1,356 @@
-# -*- coding: utf-8 -*-
-# X00T9 専用 独立辞書 試験版ジェネレータ
-# 語彙・読みは全て手書き(一般的な日本語知識)。活用は文法規則で機械生成。外部辞書は不使用。
-import re, collections
-
-def kata2hira(s):
-    return ''.join(chr(ord(c)-0x60) if 'ァ' <= c <= 'ヶ' else c for c in s)
-
-entries = []  # (reading, cand, prio)
-def add(r, c, p): entries.append((r, c, p))
-
-# ---------- 動詞 ----------
-GODAN = {
- 'く': ('か','き','け','こ','い','い'), 'ぐ': ('が','ぎ','げ','ご','い','い'),
- 'す': ('さ','し','せ','そ','し','し'), 'つ': ('た','ち','て','と','っ','っ'),
- 'ぬ': ('な','に','ね','の','ん','ん'), 'ぶ': ('ば','び','べ','ぼ','ん','ん'),
- 'む': ('ま','み','め','も','ん','ん'), 'る': ('ら','り','れ','ろ','っ','っ'),
- 'う': ('わ','い','え','お','っ','っ'),
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="google-site-verification" content="prXUu7VgkjX3tjdmuRCAHx5vn75Op4pviQRCFMh_QcY" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X-NOVA00 | スマートフォン勤怠管理ソフト「X-NOVA00 タイムカード」</title>
+<meta name="description" content="X-NOVA00 タイムカードは、スマートフォンで出退勤を記録し、勤務時間を自動集計する勤怠管理ソフトです。">
+<!-- Google Analytics 4: X-NOVA00 official website -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QFJNOVCHCB"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QFJNOVCHCB');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg-color:#0a0b10;--card-bg:rgba(22,27,38,.7);--border-color:rgba(255,255,255,.08);--primary-accent:#00f0ff;--secondary-accent:#7000ff;--text-main:#f0f4f8;--text-muted:#8a99ad;--font-head:'Space Grotesk',sans-serif;--font-body:'Inter',sans-serif;--font-code:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-padding-top:80px}
+body{background-color:var(--bg-color);color:var(--text-main);font-family:var(--font-body);line-height:1.6;overflow-x:hidden;background-image:radial-gradient(circle at 15% 15%,rgba(112,0,255,.15) 0%,transparent 40%),radial-gradient(circle at 85% 85%,rgba(0,240,255,.12) 0%,transparent 40%);background-attachment:fixed}
+a:focus-visible,button:focus-visible,.form-control:focus-visible{outline:2px solid var(--primary-accent);outline-offset:3px}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.section{padding:100px 0}
+.section-title{font-family:var(--font-head);font-size:2.2rem;font-weight:700;margin-bottom:12px;letter-spacing:-.5px;position:relative;display:inline-block}
+.section-title::after{content:'';position:absolute;bottom:-6px;left:0;width:40px;height:3px;background:var(--primary-accent);box-shadow:0 0 10px var(--primary-accent)}
+.section-subtitle{color:var(--text-muted);font-size:.95rem;margin-bottom:20px;font-family:var(--font-code)}
+.grid{display:grid;gap:24px}
+.grid-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--card-bg);border:1px solid var(--border-color);border-radius:12px;padding:32px;backdrop-filter:blur(12px);transition:border-color .3s ease}
+.card:hover{border-color:rgba(0,240,255,.4)}
+.card h3{font-family:var(--font-head);margin-bottom:12px;font-size:1.25rem}
+.card p{color:var(--text-muted);font-size:.95rem}
+.card p+p{margin-top:12px}
+.card ul{margin:12px 0 0 20px;color:var(--text-muted);font-size:.95rem}
+.card li{margin-bottom:6px}
+.card .btn{margin-top:20px}
+.profile-card{border-left:4px solid var(--primary-accent)}
+.tag{display:inline-block;padding:4px 10px;background:rgba(0,240,255,.1);color:var(--primary-accent);border-radius:4px;font-family:var(--font-code);font-size:.75rem;margin-bottom:12px}
+.price{color:var(--text-main)!important;font-weight:600;font-size:1.1rem!important}
+.todo{background:#ffe066;color:#000;padding:0 4px;border-radius:3px;font-weight:600}
+.btn{display:inline-block;padding:12px 28px;border-radius:6px;font-family:var(--font-code);font-weight:700;font-size:.9rem;text-decoration:none;cursor:pointer;transition:background .2s ease,box-shadow .2s ease;border:none}
+.btn-primary{background:var(--primary-accent);color:#000;box-shadow:0 0 15px rgba(0,240,255,.4)}
+.btn-primary:hover{background:#fff;box-shadow:0 0 25px rgba(0,240,255,.8)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+header{position:fixed;top:0;width:100%;z-index:1000;background:rgba(10,11,16,.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--border-color)}
+.nav-container{display:flex;justify-content:space-between;align-items:center;height:70px}
+.logo{font-family:var(--font-head);font-size:1.4rem;font-weight:700;color:var(--text-main);text-decoration:none;letter-spacing:1px}
+.logo span{color:var(--primary-accent)}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-family:var(--font-code);font-size:.8rem;transition:color .2s ease}
+.nav-links a:hover{color:var(--primary-accent)}
+.nav-toggle{display:none;background:none;border:1px solid var(--border-color);border-radius:6px;color:var(--text-main);font-family:var(--font-code);font-size:.8rem;padding:8px 14px;cursor:pointer}
+.hero{padding:180px 0 100px 0;min-height:80vh;display:flex;align-items:center}
+.hero-tag{font-family:var(--font-code);color:var(--primary-accent);font-size:.9rem;margin-bottom:16px;display:block}
+.hero-title{font-family:var(--font-head);font-size:clamp(2.5rem,5vw,4rem);line-height:1.1;font-weight:700;margin-bottom:24px}
+.hero-title .gradient-text{background:linear-gradient(135deg,var(--primary-accent),var(--secondary-accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-desc{max-width:650px;color:var(--text-muted);font-size:1.1rem;margin-bottom:32px}
+.contact-box{background:var(--card-bg);border:1px solid var(--border-color);border-radius:16px;padding:40px;max-width:700px;margin:0 auto}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-family:var(--font-code);font-size:.85rem;margin-bottom:8px;color:var(--text-muted)}
+.form-control{width:100%;padding:12px 16px;background:rgba(0,0,0,.4);border:1px solid var(--border-color);border-radius:6px;color:var(--text-main);font-family:var(--font-body);font-size:.95rem;transition:border-color .2s ease}
+.form-control:focus{border-color:var(--primary-accent)}
+textarea.form-control{resize:vertical;min-height:120px}
+.form-status{margin-top:16px;font-size:.9rem;color:var(--text-muted);border-left:3px solid var(--primary-accent);padding-left:12px}
+.form-status[hidden]{display:none}
+.form-status.error{border-left-color:#ff6b6b;color:#ffb3b3}
+.email-direct{margin-top:24px;text-align:center;font-family:var(--font-code);font-size:.9rem;color:var(--text-muted)}
+.email-direct a{color:var(--primary-accent);text-decoration:none}
+.legal-section{background:rgba(14,18,26,.95);border-top:1px solid var(--border-color);padding:80px 0}
+.legal-box{background:var(--card-bg);border:1px solid var(--border-color);border-radius:12px;padding:32px;margin-bottom:30px;font-size:.9rem;color:var(--text-muted)}
+.legal-box h3{font-family:var(--font-head);color:var(--primary-accent);font-size:1.3rem;margin-bottom:16px}
+.legal-box h4{color:var(--text-main);font-size:1rem;margin-top:20px;margin-bottom:8px}
+.legal-box p{margin-bottom:12px;line-height:1.7;color:var(--text-muted)}
+.legal-box ul{padding-left:20px;margin-bottom:12px}
+.legal-box li{margin-bottom:6px;color:var(--text-muted)}
+.legal-box a{color:var(--primary-accent);text-decoration:underline}
+footer{border-top:1px solid var(--border-color);padding:30px 0;text-align:center;font-family:var(--font-code);font-size:.8rem;color:var(--text-muted)}
+footer a{color:var(--text-muted);text-decoration:none;margin:0 10px}
+footer a:hover{color:var(--primary-accent)}
+.footer-links{margin-bottom:12px}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){.fade-in{opacity:1;transform:none;transition:none}}
+@media (max-width:768px){
+.section{padding:60px 0}.contact-box{padding:24px}.legal-box{padding:20px}.nav-toggle{display:block}
+.nav-links{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;gap:0;background:rgba(10,11,16,.97);border-bottom:1px solid var(--border-color);padding:8px 24px 16px}
+.nav-links.open{display:flex}
+.nav-links a{display:block;padding:12px 0;font-size:.9rem}
 }
-TE_SUFFIX = {'く':('いて','いた'),'ぐ':('いで','いだ'),'す':('して','した'),'つ':('って','った'),
-             'ぬ':('んで','んだ'),'ぶ':('んで','んだ'),'む':('んで','んだ'),'る':('って','った'),'う':('って','った')}
+</style>
+</head>
+<body>
+<header>
+<div class="container nav-container">
+<a href="#" class="logo">X-NOVA<span>00</span></a>
+<button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links">MENU</button>
+<ul class="nav-links" id="nav-links">
+<li><a href="#about">// ABOUT</a></li>
+<li><a href="#products">// PRODUCTS</a></li>
+<li><a href="#contact">// CONTACT</a></li>
+<li><a href="#terms">// TERMS</a></li>
+<li><a href="#privacy">// PRIVACY</a></li>
+<li><a href="#refund">// REFUND</a></li>
+</ul>
+</div>
+</header>
 
-def conj(word, typ):
-    """word の末尾がかな。戻り値: {形名: 文字列}"""
-    if typ == 'ichi':
-        s = word[:-1]
-        return {'dict':word,'masu':s+'ます','mashita':s+'ました','masen':s+'ません',
-                'te':s+'て','ta':s+'た','nai':s+'ない','tai':s+'たい'}
-    if typ == 'godan':
-        e = word[-1]; s = word[:-1]; a,i,_,_,_,_ = GODAN[e]
-        te, ta = TE_SUFFIX[e]
-        return {'dict':word,'masu':s+i+'ます','mashita':s+i+'ました','masen':s+i+'ません',
-                'te':s+te,'ta':s+ta,'nai':s+a+'ない','tai':s+i+'たい'}
-    raise ValueError
+<section class="hero">
+<div class="container">
+<span class="hero-tag fade-in">// ATTENDANCE MANAGEMENT SOFTWARE</span>
+<h1 class="hero-title fade-in">現場の勤怠記録を、<br><span class="gradient-text">スマートフォンで簡単</span>に。</h1>
+<p class="hero-desc fade-in">X-NOVA00 タイムカードは、スマートフォンで出退勤を記録し、勤務時間を自動で集計する勤怠管理ソフトです。</p>
+<a href="#products" class="btn btn-primary fade-in">製品・料金を見る</a>
+</div>
+</section>
 
-VPRIO = {'dict':85,'masu':80,'ta':78,'te':78,'nai':72,'mashita':70,'masen':60,'tai':55}
+<section id="about" class="section">
+<div class="container">
+<h2 class="section-title fade-in">ABOUT</h2>
+<p class="section-subtitle fade-in">// 製品づくりの姿勢</p>
+<div class="grid grid-2">
+<div class="card profile-card fade-in">
+<h3>現場で使われる設計</h3>
+<p>専門用語を排し、実際に使う現場の目線で、直感的に操作できるソフトを作ります。</p>
+</div>
+<div class="card profile-card fade-in">
+<h3>ミスや手間が出やすい部分を減らす</h3>
+<p>勤怠の記録のように、ミスや手間が生まれやすい作業を、ソフトの機能で減らすことを目指します。</p>
+</div>
+</div>
+</div>
+</section>
 
-godan = """送る:おくる 贈る:おくる 行く:いく 書く:かく 聞く:きく 歩く:あるく 働く:はたらく 置く:おく
-話す:はなす 貸す:かす 返す:かえす 探す:さがす 出す:だす 待つ:まつ 持つ:もつ 遊ぶ:あそぶ 運ぶ:はこぶ
-選ぶ:えらぶ 読む:よむ 飲む:のむ 休む:やすむ 作る:つくる 取る:とる 乗る:のる 帰る:かえる 入る:はいる
-売る:うる 会う:あう 買う:かう 使う:つかう 言う:いう 思う:おもう 終わる:おわる 分かる:わかる"""
-ichidan = """見る:みる 食べる:たべる 寝る:ねる 起きる:おきる 出る:でる 教える:おしえる 覚える:おぼえる
-考える:かんがえる 答える:こたえる 伝える:つたえる 調べる:しらべる 続ける:つづける 忘れる:わすれる
-借りる:かりる 始める:はじめる"""
+<section id="products" class="section">
+<div class="container">
+<h2 class="section-title fade-in">PRODUCTS</h2>
+<p class="section-subtitle fade-in">// 製品・料金</p>
+<div class="grid">
+<div class="card fade-in">
+<span class="tag">提供中</span>
+<h3>X-NOVA00 タイムカード</h3>
+<p>スマートフォンで出退勤を記録し、勤務時間を自動で集計する勤怠管理ソフトです。打刻データはGoogleスプレッドシートに自動で記録されます。</p>
+<p><strong>主な機能</strong></p>
+<ul>
+<li>スマートフォンでの出勤・退勤・休憩・外出・戻りの打刻</li>
+<li>勤務時間の自動計算・月別集計(夜勤など日をまたぐ勤務にも対応)</li>
+<li>位置情報(GPS)による打刻範囲の確認(打刻の瞬間のみ使用し、常時追跡はしません)</li>
+<li>管理者による修正申請の承認</li>
+<li>日本語・英語の表示切り替え</li>
+<li>最大2拠点・従業員最大50名まで登録可能</li>
+</ul>
+<p class="price">初期費用 30,000円 / 月額 10,000円 <span class="todo">【税込・税別を記入】</span></p>
+<p>初期費用に含まれる内容:<span class="todo">【記入】</span></p>
+<p>お支払い方法:オンライン決済(決済はPaddleが行います)。ご利用条件・返金条件は、本ページの利用規約・返金ポリシーをご確認ください。</p>
+<!-- Paddleのチェックアウトを設置したら、下のボタンをチェックアウトのリンクに差し替える -->
+<a href="#contact" class="btn btn-primary">お申し込み・お問い合わせ</a>
+</div>
+</div>
+</div>
+</section>
 
-def gen_verbs(text, typ):
-    for item in text.split():
-        k, r = item.split(':')
-        fk, fr = conj(k, typ), conj(r, typ)
-        if r == 'いく':  # 行く の特殊活用 (いって/いった)
-            fr['te'], fr['ta'] = 'いって', 'いった'; fk['te'], fk['ta'] = '行って', '行った'
-        for form in VPRIO: add(fr[form], fk[form], VPRIO[form])
+<section id="contact" class="section">
+<div class="container">
+<h2 class="section-title fade-in">CONTACT</h2>
+<p class="section-subtitle fade-in">// お問い合わせ</p>
+<div class="contact-box fade-in">
+<form id="contact-form">
+<div class="form-group">
+<label for="name">お名前 / 貴社名</label>
+<input type="text" id="name" class="form-control" placeholder="山田 太郎" required>
+</div>
+<div class="form-group">
+<label for="email">メールアドレス</label>
+<input type="email" id="email" class="form-control" placeholder="example@email.com" required>
+</div>
+<div class="form-group">
+<label for="message">お問い合わせ内容</label>
+<textarea id="message" class="form-control" placeholder="製品についてのご質問、お申し込みのご希望などをご記入ください" required></textarea>
+</div>
+<button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">送信する</button>
+<p id="form-status" class="form-status" role="status" aria-live="polite" hidden></p>
+</form>
+<div class="email-direct">
+Direct Email: <a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com</a>
+</div>
+</div>
+</div>
+</section>
 
-gen_verbs(godan, 'godan'); gen_verbs(ichidan, 'ichi')
+<section id="legal" class="legal-section">
+<div class="container">
+<h2 class="section-title fade-in">LEGAL INFORMATION</h2>
+<p class="section-subtitle fade-in">// TERMS, PRIVACY &amp; REFUND POLICY</p>
 
-# カ変 来る
-kuru = {'dict':('くる','来る'),'masu':('きます','来ます'),'mashita':('きました','来ました'),
-        'masen':('きません','来ません'),'te':('きて','来て'),'ta':('きた','来た'),
-        'nai':('こない','来ない'),'tai':('きたい','来たい')}
-for f,(r,c) in kuru.items(): add(r,c,VPRIO[f])
+<div class="legal-box fade-in" id="terms">
+<h3>利用規約 / Terms of Service</h3>
+<p>本規約は、<span class="todo">【事業者の正式名称(個人事業主の場合は氏名)】</span>(屋号:X-NOVA00、以下「当方」)が提供するスマートフォン勤怠管理ソフト「X-NOVA00 タイムカード」(以下「本サービス」)の利用条件を定めるものです。ご利用の前にご確認ください。</p>
+<h4>1. サービスについて</h4>
+<p>本サービスは、スマートフォンで出退勤を記録し、勤務時間を集計する勤怠管理ソフトウェアです。</p>
+<h4>2. 料金とお支払い</h4>
+<p>料金は、本ページの「PRODUCTS」に表示のとおりです。お支払いは、オンライン決済で行います。</p>
+<h4>3. 販売代行(Merchant of Record)</h4>
+<p>当方の注文処理は、オンライン販売代行業者であるPaddle.comが行います。Paddle.comは、すべての注文の販売者(Merchant of Record)であり、お支払い、請求、返金に関するお問い合わせに対応します。</p>
+<h4>4. 利用者の責任</h4>
+<p>利用者は、本サービスを法令および公序良俗に反する目的で使用してはなりません。</p>
+<h4>5. サービス内容の変更</h4>
+<p>サービスの改善、保守、その他必要な場合、提供内容を変更または一時停止する場合があります。</p>
+<h4>6. 禁止事項</h4>
+<ul>
+<li>不正アクセスまたはシステムへの妨害行為</li>
+<li>第三者の権利を侵害する行為</li>
+<li>サービスの不正利用、複製、転売</li>
+<li>法令に違反する行為</li>
+</ul>
+<h4>7. お問い合わせ</h4>
+<p>本規約に関するお問い合わせは、<a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com</a> までご連絡ください。</p>
+</div>
 
-# サ変 (名詞+する)
-suru = """勉強:べんきょう 連絡:れんらく 確認:かくにん 準備:じゅんび 説明:せつめい 相談:そうだん 出発:しゅっぱつ
-予約:よやく 参加:さんか 報告:ほうこく 質問:しつもん 注文:ちゅうもん 検討:けんとう 理解:りかい 練習:れんしゅう
-運転:うんてん 結婚:けっこん 掃除:そうじ 散歩:さんぽ 紹介:しょうかい"""
-SURU = {'dict':'する','masu':'します','mashita':'しました','masen':'しません','te':'して','ta':'した','nai':'しない','tai':'したい'}
-for item in suru.split():
-    k, r = item.split(':')
-    add(r, k, 80)  # 名詞
-    for f,suf in SURU.items():
-        if f in ('tai','masen'): continue  # 試験版では容量調整のため省略
-        add(r+suf, k+suf, VPRIO[f]-2)
+<div class="legal-box fade-in" id="privacy">
+<h3>プライバシーポリシー / Privacy Policy</h3>
+<p><span class="todo">【事業者の正式名称(個人事業主の場合は氏名)】</span>(屋号:X-NOVA00、以下「当方」)は、提供する勤怠管理システム等のサービスにおいて、ユーザーのプライバシーを尊重し、個人情報およびGoogleユーザーデータの保護に努めます。</p>
 
-# ---------- 形容詞 ----------
-iadj = """高い:たかい 安い:やすい 大きい:おおきい 小さい:ちいさい 新しい:あたらしい 古い:ふるい 早い:はやい 遅い:おそい
-長い:ながい 短い:みじかい 多い:おおい 少ない:すくない 忙しい:いそがしい 楽しい:たのしい 難しい:むずかしい
-易しい:やさしい 美味しい:おいしい 暑い:あつい 寒い:さむい 強い:つよい 弱い:よわい 悪い:わるい 嬉しい:うれしい
-悲しい:かなしい 優しい:やさしい"""
-for item in iadj.split():
-    k, r = item.split(':'); sk, sr = k[:-1], r[:-1]
-    add(r,k,85); add(sr+'く',sk+'く',65); add(sr+'くて',sk+'くて',70)
-    add(sr+'かった',sk+'かった',70); add(sr+'くない',sk+'くない',65)
-# 良い
-add('いい','良い',88); add('よい','良い',70); add('よく','良く',65); add('よかった','良かった',70); add('よくない','良くない',65)
+<h4>1. アクセスされるデータ（Googleユーザーデータを含む）</h4>
+<p>当方のアプリケーション（X-NOVA00）がアクセス、収集、または操作するデータの種類は以下の通りです。</p>
+<ul>
+<li>Googleスプレッドシートへのアクセス権およびデータ（勤怠記録、打刻データ、社員情報、システム設定値等）</li>
+<li>Google認証時に提供される基本プロフィール情報（氏名、メールアドレス等）</li>
+<li>お問い合わせやサービス利用時に提供される情報</li>
+</ul>
 
-naadj = """静か:しずか 便利:べんり 大切:たいせつ 大丈夫:だいじょうぶ 元気:げんき 簡単:かんたん 有名:ゆうめい
-必要:ひつよう 重要:じゅうよう 親切:しんせつ 丁寧:ていねい 綺麗:きれい 好き:すき 大変:たいへん"""
-for item in naadj.split():
-    k, r = item.split(':'); add(r,k,80); add(r+'な',k+'な',60); add(r+'に',k+'に',60)
+<h4>2. データの利用目的</h4>
+<p>取得およびアクセスしたGoogleユーザーデータは、以下の目的のためにのみ利用・処理されます。</p>
+<ul>
+<li>X-NOVA00勤怠管理システムのコア機能（出退勤打刻、勤務時間の自動計算、修正申請・承認、月別集計）の正確な実行</li>
+<li>ユーザーアカウントの本人確認およびサポート対応</li>
+<li>システムの安全性確保および不正利用の防止</li>
+</ul>
 
-# ---------- 名詞 ----------
-def nouns(text, p):
-    for item in text.split():
-        k, r = item.split(':'); add(r, k, p)
+<h4>3. 第三者へのデータ共有</h4>
+<p>法令に基づく開示請求等、正当な理由がある場合、および下記「4. 決済について」に記載する決済処理を除き、取得したGoogleユーザーデータをユーザーの事前の同意なく第三者へ提供、販売、共有することはありません。なお、ウェブサイトのアクセス解析に伴うGoogleへの情報送信については、下記「アクセス解析について」に記載しています。</p>
 
-nouns("""私:わたし 今日:きょう 明日:あした 昨日:きのう 今:いま 朝:あさ 昼:ひる 夜:よる 時間:じかん 毎日:まいにち
-毎週:まいしゅう 今週:こんしゅう 来週:らいしゅう 先週:せんしゅう 今月:こんげつ 来月:らいげつ 来年:らいねん
-去年:きょねん 家:いえ 学校:がっこう 会社:かいしゃ 駅:えき 電車:でんしゃ 道:みち 店:みせ 部屋:へや 友達:ともだち
-家族:かぞく 両親:りょうしん 母:はは 父:ちち 子供:こども 先生:せんせい 学生:がくせい 天気:てんき 雨:あめ 雪:ゆき
-空:そら 海:うみ 山:やま 川:かわ 花:はな 犬:いぬ 猫:ねこ 水:みず お茶:おちゃ 料理:りょうり 食事:しょくじ
-朝食:ちょうしょく 昼食:ちゅうしょく 夕食:ゆうしょく 野菜:やさい 果物:くだもの 肉:にく 魚:さかな 米:こめ
-病院:びょういん 薬:くすり 趣味:しゅみ 旅行:りょこう 誕生日:たんじょうび 約束:やくそく 荷物:にもつ 手紙:てがみ
-写真:しゃしん 音楽:おんがく 映画:えいが 買い物:かいもの 天気予報:てんきよほう 椅子:いす 机:つくえ 鍵:かぎ 財布:さいふ""", 78)
+<h4>4. 決済について(Paddle)</h4>
+<p>本サービスの決済は、販売代行業者(Merchant of Record)であるPaddle.comが行います。決済の処理に必要な情報(氏名、メールアドレス、請求先情報、支払い情報など)は、Paddle.comが取得・処理します。当方は、クレジットカード番号などの支払い情報を保持しません。Paddle.comによる情報の取り扱いについては、<a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer">Paddleのプライバシーポリシー</a>をご確認ください。</p>
 
-nouns("""仕事:しごと 会議:かいぎ 資料:しりょう 報告書:ほうこくしょ 契約:けいやく 予算:よさん 売上:うりあげ 利益:りえき
-顧客:こきゃく 取引先:とりひきさき 担当者:たんとうしゃ 部長:ぶちょう 課長:かちょう 社長:しゃちょう 同僚:どうりょう
-上司:じょうし 部下:ぶか 出張:しゅっちょう 残業:ざんぎょう 休暇:きゅうか 給料:きゅうりょう 面接:めんせつ
-履歴書:りれきしょ 名刺:めいし 書類:しょるい 申請:しんせい 締切:しめきり 納期:のうき 見積もり:みつもり
-請求書:せいきゅうしょ 領収書:りょうしゅうしょ 日程:にってい 議事録:ぎじろく 提案:ていあん 企画:きかく
-計画:けいかく 目標:もくひょう 課題:かだい 問題:もんだい 結果:けっか 状況:じょうきょう 内容:ないよう 理由:りゆう
-方法:ほうほう 責任:せきにん 担当:たんとう 業務:ぎょうむ 部署:ぶしょ 事務所:じむしょ 電話:でんわ 返信:へんしん
-添付:てんぷ 件名:けんめい 宛先:あてさき 本社:ほんしゃ 支店:してん 工場:こうじょう 在宅勤務:ざいたくきんむ""", 75)
+<h4>5. データの保存と保護（Data Storage &amp; Security）</h4>
+<p>ユーザーデータは、Google Apps Scriptおよび暗号化されたGoogleスプレッドシート（Googleドライブ）上で安全に管理され、不正アクセス、紛失、改ざん等を防止するための適切な管理体制を維持しています。</p>
 
-# ---------- カタカナ語 (読みは自動でひらがな化) ----------
-kata = """パソコン スマホ メール インターネット アプリ ソフト データ ファイル フォルダ パスワード ネットワーク サーバー
-システム ログイン ダウンロード アップロード クリック キーボード マウス モニター プリンター コピー スキャン メモ
-カレンダー スケジュール ミーティング プロジェクト チーム リーダー マネージャー クライアント サービス ビジネス
-マーケティング コスト スタッフ アルバイト レストラン コーヒー ケーキ パン サラダ ラーメン カレー ホテル タクシー
-バス チケット カメラ テレビ ラジオ ニュース ゲーム スポーツ サッカー テニス ゴルフ ドライブ プレゼント パーティー
-コンビニ スーパー デパート トイレ シャワー エアコン ドア テーブル ベッド ノート ペン バッグ シャツ コート ルール
-テスト レポート アイデア イメージ チャンス トラブル リスク レベル スタート ゴール ポイント"""
-for w in kata.split(): add(kata2hira(w), w, 70)
-add('すまほ','スマートフォン',60); add('ぱそこん','パーソナルコンピュータ',40)
+<h4>6. データの保持と削除（Data Retention &amp; Deletion）</h4>
+<p>ユーザーデータは、サービス提供および法令上必要な期間のみ保持されます。データの削除をご希望される場合、またはアカウントの連携解除を希望される場合は、Googleアカウントのセキュリティ設定画面（アプリのアクセス権の削除）からいつでも直接アクセス権を取り消すことができます。また、個別のお問い合わせフォームやメールでの削除ご依頼にも速やかに対応いたします。</p>
 
-# ---------- 敬語・定型句 ----------
-phrases = """いらっしゃいませ:いらっしゃいませ ありがとうございます:ありがとうございます ありがとうございました:ありがとうございました
-よろしくおねがいします:よろしくお願いします おねがいいたします:お願いいたします おせわになっております:お世話になっております
-おつかれさまです:お疲れ様です おつかれさまでした:お疲れ様でした しつれいいたします:失礼いたします しつれいします:失礼します
-もうしわけございません:申し訳ございません もうしわけありません:申し訳ありません すみません:すみません
-ごかくにんください:ご確認ください ごれんらくください:ご連絡ください ごれんらくいたします:ご連絡いたします
-ごほうこくいたします:ご報告いたします ごあんないいたします:ご案内いたします しょうちいたしました:承知いたしました
-しょうちしました:承知しました かしこまりました:かしこまりました しょうしょうおまちください:少々お待ちください
-おまたせいたしました:お待たせいたしました おまたせしました:お待たせしました おはようございます:おはようございます
-こんにちは:こんにちは こんばんは:こんばんは おやすみなさい:おやすみなさい いただきます:いただきます
-ごちそうさまでした:ごちそうさまでした おさきにしつれいします:お先に失礼します おそれいります:恐れ入ります
-きょうしゅくです:恐縮です ごけんとうください:ご検討ください ごきょうりょくありがとうございます:ご協力ありがとうございます
-はいけんいたします:拝見いたします ございます:ございます いたします:いたします ぞんじます:存じます
-おきゃくさま:お客様 たんとうしゃさま:担当者様 みなさま:皆様 おせわになります:お世話になります
-おいそがしいところ:お忙しいところ ごえんりょください:ご遠慮ください ごりょうしょうください:ご了承ください
-よろしくおねがいいたします:よろしくお願いいたします"""
-for item in phrases.split():
-    r, c = item.split(':'); add(r, c, 90)
+<h4>7. アクセス解析について</h4>
+<p>当サイトでは、閲覧状況を把握してサイトを改善するため、Google LLCが提供するGoogleアナリティクス4（GA4）を利用しています。アクセス解析に際して、Cookie等の技術を使用し、閲覧したページ、アクセス日時、利用端末・ブラウザ等の情報がGoogleに送信・処理される場合があります。</p>
+<p>これらの情報は、Googleの規約・ポリシーに従って取り扱われます。Googleによるデータの取り扱いについては、<a href="https://policies.google.com/privacy?hl=ja" target="_blank" rel="noopener noreferrer">Googleプライバシーポリシー</a>をご確認ください。ブラウザでCookieを制限することや、<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener noreferrer">Googleアナリティクス オプトアウト アドオン</a>を利用することで、計測を制限できる場合があります。</p>
 
-# 敬語動詞 (基本形 + ます形)
-keigo_verbs = """いらっしゃる:いらっしゃる:いらっしゃいます おっしゃる:おっしゃる:おっしゃいます 召し上がる:めしあがる:召し上がります
-伺う:うかがう:伺います 参る:まいる:参ります 申す:もうす:申します いただく:いただく:いただきます
-くださる:くださる:くださいます なさる:なさる:なさいます 申し上げる:もうしあげる:申し上げます ご覧になる:ごらんになる:ご覧になります"""
-for item in keigo_verbs.split():
-    k, r, m = item.split(':'); add(r,k,85)
-    # ます形の読み
-    if k == '召し上がる': mr = 'めしあがります'
-    elif k == '伺う': mr = 'うかがいます'
-    elif k == '参る': mr = 'まいります'
-    elif k == '申す': mr = 'もうします'
-    elif k == '申し上げる': mr = 'もうしあげます'
-    elif k == 'ご覧になる': mr = 'ごらんになります'
-    else: mr = m
-    add(mr, m, 80)
+<h4>8. お問い合わせ</h4>
+<p>プライバシーポリシーおよびデータ取扱いに関するお問い合わせは、<a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com</a> までご連絡ください。</p>
+</div>
 
-# 読み分け用: ひらがな書き候補
+<div class="legal-box fade-in" id="refund">
+<h3>返金ポリシー / Refund Policy</h3>
+<p>本サービスの返金について、以下の方針を適用します。</p>
+<h4>1. 返金期間</h4>
+<p>購入日から14日以内であれば、理由を問わず、返金をお申し込みいただけます。</p>
+<h4>2. 返金の申請方法</h4>
+<p>返金は、販売代行業者であるPaddle.comが処理します。ご注文後に届く領収書のメールに記載のリンク、または <a href="https://paddle.net" target="_blank" rel="noopener noreferrer">paddle.net</a> から、返金をお申し込みください。ご不明な点は、<a href="mailto:xnova00.office@gmail.com">xnova00.office@gmail.com</a> までお問い合わせください。</p>
+<h4>3. 返金方法</h4>
+<p>返金は、ご購入時のお支払い方法に対して行われます。</p>
+</div>
+</div>
+</section>
 
-# 同音の使用頻度差(一般知識に基づく): 贈る は 送る より低め、行く は 言う より低め
-entries = [(r,c,p-5 if c.startswith('贈') else p) for r,c,p in entries]
-entries = [(r,c,p-1 if c.startswith('行') else p) for r,c,p in entries]
-# ---------- 重複除去・検査 ----------
-seen = {}; dups = []
-for r,c,p in entries:
-    key = (r,c)
-    if key in seen: dups.append(key); seen[key] = max(seen[key], p)
-    else: seen[key] = p
-rows = sorted(((r,c,p) for (r,c),p in seen.items()), key=lambda x:(x[0],-x[2],x[1]))
+<footer>
+<div class="container">
+<div class="footer-links">
+<a href="#terms">利用規約</a>
+<a href="#privacy">プライバシーポリシー</a>
+<a href="#refund">返金ポリシー</a>
+</div>
+<p>&copy; 2026 X-NOVA00. All Rights Reserved.</p>
+</div>
+</footer>
 
-errs = []
-for r,c,p in rows:
-    if not re.fullmatch(r'[ぁ-ゖー]+', r): errs.append(('読みに仮名以外', r, c))
-    if '\t' in c or not c or not r: errs.append(('空欄/タブ', r, c))
-    if not (1 <= p <= 100): errs.append(('優先度範囲外', r, c))
-    # 文末かなの整合: 候補末尾のかなが読み末尾と一致するか(漢字語は除く)
-    tail = re.search(r'[ぁ-ゖ]+$', c)
-    if tail and not r.endswith(tail.group()): errs.append(('語尾不整合', r, c))
-    if re.search(r'[A-Za-z0-9]', c): errs.append(('英数字混入', r, c))
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Scroll animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-with open('/mnt/user-data/outputs/x00t9_trial_dict_1000.tsv','w',encoding='utf-8',newline='') as f:
-    for r,c,p in rows[:]:
-        f.write(f'{r}\t{c}\t{p}\n')
-print('total', len(rows), 'dups merged', len(dups), 'errors', len(errs))
-for e in errs[:20]: print(e)
-cnt = collections.Counter(r for r,_,_ in rows)
-print('homophones sample', [(r,n) for r,n in cnt.items() if n>1][:15])
+    // Mobile navigation
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    const setNav = (open) => {
+        navLinks.classList.toggle('open', open);
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.textContent = open ? 'CLOSE' : 'MENU';
+    };
+    navToggle.addEventListener('click', () => setNav(!navLinks.classList.contains('open')));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNav(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setNav(false); });
+
+    // Contact form (GAS endpoint and no-cors method unchanged)
+    const contactForm = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const statusEl = document.getElementById('form-status');
+    const showStatus = (text, isError) => {
+        statusEl.textContent = text;
+        statusEl.classList.toggle('error', Boolean(isError));
+        statusEl.hidden = false;
+    };
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerText = '送信処理中...';
+            statusEl.hidden = true;
+            const gasUrl = "https://script.google.com/macros/s/AKfycby2lTxZxCv5w62ldYo9cuAtV2feMvawlb1vsDSl0u2kQGlmVEQIJcpXbHa8vxIU1N13kg/exec";
+            const payload = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                message: document.getElementById('message').value
+            };
+
+            (async () => {
+                try {
+                    await fetch(gasUrl, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    // no-cors のため、相手側に届いたかはこのページでは確認できない。入力内容は消さない。
+                    showStatus('送信処理を行いました。このページでは、届いたかどうかを確認できません。数日たっても返信がない場合は、下記のメールアドレスへ直接ご連絡ください。入力内容はそのまま残しています。', false);
+                } catch (error) {
+                    showStatus('送信できませんでした。通信状況をご確認のうえ、もう一度お試しいただくか、下記のメールアドレスへ直接ご連絡ください。入力内容はそのまま残しています。', true);
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = '送信する';
+                }
+            })();
+        });
+    }
+});
+</script>
+</body>
+</html>
