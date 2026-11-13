@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="QR time tracking for up to 50 employees across two locations. Record attendance on smartphones and manage work hours in Google Sheets.">
+  <title>X-NOVA00 Time Card | QR Attendance Tracking</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; background: #0a0b10; color: #f0f4f8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; line-height: 1.65; background: radial-gradient(ellipse at top left, #201238, transparent 55%), radial-gradient(ellipse at right, #102b31, transparent 60%); }
+    .wrap { width: min(100% - 2rem, 64rem); margin: auto; }
+    header, footer { border-block-end: 1px solid #303744; }
+    nav, footer .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1rem; }
+    a { color: #65eef5; }
+    .brand { color: inherit; text-decoration: none; font-weight: 800; }
+    .brand span { color: #65eef5; }
+    .hero { padding-block: clamp(3rem, 9vw, 7rem) 3rem; }
+    h1 { font-size: clamp(2.6rem, 7vw, 5rem); line-height: 1.08; margin: 0 0 1rem; letter-spacing: -.045em; }
+    .hero p { font-size: 1.2rem; max-width: 40rem; }
+    p, li, dd { color: #c3cfdd; }
+    .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+    .button { display: inline-block; padding: .65rem 1rem; border: 1px solid #65eef5; border-radius: .5rem; text-decoration: none; font-weight: 650; }
+    .primary { background: #65eef5; color: #0a0b10; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
+    .card { border: 1px solid #303744; border-radius: .85rem; background: #121722; padding: 1.4rem; }
+    .card h2 { margin-top: 0; }
+    ul { padding-left: 1.25rem; }
+    dt { font-weight: 700; }
+    dd { margin: 0 0 .65rem; }
+    .contact { padding-block: 2rem 3rem; }
+    footer { border-block: 1px solid #303744; }
+    footer .wrap { flex-wrap: wrap; }
+    :focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="wrap" aria-label="Site navigation">
+      <a class="brand" href="en.html">X-NOVA<span>00</span></a>
+      <a href="index.html" lang="ja" hreflang="ja">日本語</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>X-NOVA00 Time Card</h1>
+      <p>Track employee attendance with smartphone QR codes across up to two locations, with support for up to 50 employees. Attendance records go directly into Google Sheets.</p>
+      <div class="actions">
+        <a class="button primary" href="#contact">Contact us</a>
+        <a class="button" href="https://workspace.google.com/marketplace/app/xnova00_time_card/776297901274">View on Google Workspace Marketplace</a>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Features</h2>
+        <ul>
+          <li>Clock in and out by scanning a QR code on a smartphone.</li>
+          <li>Calculate work hours and monthly totals automatically, including overnight shifts.</li>
+          <li>Verify the location with GPS when employees clock in or out.</li>
+          <li>Let administrators review and approve requests to correct time records.</li>
+        </ul>
+      </section>
+      <section class="card">
+        <h2>What you need</h2>
+        <dl>
+          <dt>Administrators</dt>
+          <dd>A Google account for sign-in and managing attendance data in Google Sheets.</dd>
+          <dt>Employees</dt>
+          <dd>A smartphone with internet access and location permission. Standard QR clock-in and clock-out do not require a Google account.</dd>
+        </dl>
+      </section>
+    </div>
+
+    <section class="contact" id="contact">
+      <h2>Pricing and inquiries</h2>
+      <p>Contact us for pricing and setup details. Online checkout is in preparation.</p>
+      <a class="button primary" href="mailto:xnova00.office@gmail.com">Email X-NOVA00</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>X-NOVA00</span>
+      <a href="index.html#terms" hreflang="ja">Terms of Service (Japanese)</a>
+      <a href="privacy.html" hreflang="ja">Privacy Policy (Japanese)</a>
+      <a href="index.html#refund" hreflang="ja">Refund Policy (Japanese)</a>
+    </div>
+  </footer>
+</body>
+</html>
