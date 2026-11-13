@@ -1,26 +1,90 @@
 <section id="links" class="section">
+  <style>
+    #links .link-list {
+      display: grid;
+      gap: 12px;
+      max-width: 480px;
+      margin: 24px auto 0;
+    }
+
+    #links .link-item {
+      display: block;
+      padding: 16px 20px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--card-bg);
+      color: var(--text-main);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    #links a.link-item:hover,
+    #links a.link-item:focus-visible {
+      border-color: var(--primary-accent);
+    }
+
+    #links .link-item small {
+      display: block;
+      margin-top: 4px;
+    }
+
+    #links .marketplace-badge {
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      margin: 4px auto 0;
+      padding: 17px;
+    }
+
+    #links .marketplace-badge img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 68px;
+    }
+  </style>
+
   <div class="container">
     <h2 class="section-title">リンク集</h2>
 
-    <div style="display:grid; gap:12px; max-width:480px; margin:24px auto 0; text-align:center;">
-      <a href="https://workspace.google.com/marketplace/app/xnova00_time_card/776297901274?pann=b"
-         target="_blank" rel="noopener" style="display:block; padding:17px;">
+    <div class="link-list">
+      <a class="link-item" href="tel:09090209544">電話をかける</a>
+      <a class="link-item" href="https://lin.ee/8UxTgue">LINE</a>
+      <a class="link-item" href="mailto:xnova.00@office.com">メールを送る</a>
+      <a class="link-item" href="https://x-nova00.com/">
+        ホームページ
+        <small>X-NOVA00</small>
+      </a>
+      <a class="link-item" href="https://www.youtube.com/@ai.nova00official">
+        ノヴァ AI NOVA【YouTube】
+      </a>
+      <a class="link-item" href="https://www.threads.com/@x.nova00">Threads</a>
+      <a class="link-item" href="https://www.instagram.com/x.nova00/">Instagram</a>
+      <a class="link-item" href="https://www.facebook.com/profile.php?id=61582284952352">
+        Facebook
+      </a>
+      <a class="link-item" href="https://x.com/Xnovaoffice">X（旧Twitter）</a>
+
+      <div class="link-item">
+        X-NOVA00ラジオ
+        <small>AI二人が話をするラジオ</small>
+      </div>
+
+      <a class="link-item" href="https://note.com/xnova00">
+        note｜X-NOVA00
+        <small>開発日記・X00T09の最新情報</small>
+      </a>
+      <a class="link-item" href="https://www.itreview.jp/products/x-nova-00/reviews">
+        ITreview｜X-NOVA00 タイムカード
+        <small>勤怠管理システムの製品紹介・レビュー</small>
+      </a>
+
+      <a class="marketplace-badge"
+         href="https://workspace.google.com/marketplace/app/xnova00_time_card/776297901274?pann=b"
+         target="_blank" rel="noopener">
         <img src="https://workspace.google.com/static/img/marketplace/ja/gwmBadge.svg?"
-             alt="Google Workspace Marketplaceでタイムカードを見る"
-             style="display:block; width:auto; height:auto; max-width:100%; max-height:68px; margin:auto;">
-      </a>
-
-      <a class="card" href="#products" style="display:block; padding:16px;">
-        タイムカードの機能・料金
-      </a>
-
-      <a class="card" href="#contact" style="display:block; padding:16px;">
-        導入・業務改善のご相談
-      </a>
-
-      <a class="card" href="https://www.youtube.com/@ai.nova00official"
-         style="display:block; padding:16px;">
-        ノヴァのYouTube
+             alt="Google Workspace Marketplaceでタイムカードを見る">
       </a>
     </div>
   </div>
